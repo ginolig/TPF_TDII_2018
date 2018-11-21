@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <curses.h>
-#define ENTER           10
-#define BORRAR           127
- 
+#define ENTER 10
+#define BORRAR 127
+
 
 char password[5];
 char mypass[]={'p','a','s','s','w'};
