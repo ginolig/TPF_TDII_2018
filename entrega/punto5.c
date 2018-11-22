@@ -6,7 +6,6 @@ void fantastic(){
     wiringPiSetupGpio() ;
     int i=0;
     int pins_leds[]={23,24,25,12,16,20,21,26};
-    wiringPiSetup();
     pinMode(17, INPUT);
     for(i=0;i<8;i++)
       pinMode(pins_leds[i], OUTPUT);
