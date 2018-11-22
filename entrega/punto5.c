@@ -3,6 +3,7 @@
 #include <wiringPi.h>
 
 void fantastic(){
+    wiringPiSetupGpio() ;
     int i=0;
     int pins_leds[]={23,24,25,12,16,20,21,26};
     wiringPiSetup();
