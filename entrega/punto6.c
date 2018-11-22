@@ -3,6 +3,7 @@
 #include <wiringPi.h>
 
 void carrera(){
+    wiringPiSetupGpio() ;
     int i=0, j=0;
     int lut[16][8]={
       {1,0,0,0,0,0,0,0},
