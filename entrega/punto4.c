@@ -1,15 +1,23 @@
-#include <EasyPIO.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include "EasyPIO.h"
 
 void salida();
 
 void main(){
-	int a=0;
-	
+	int a=0, i=0;
+	int ins[]={17,5,6,13,19};
+	int outs[]={23,24,25,12};
+	pioInit();
+	for(i=0;i<5;i++)
+		pinMode(ins[i], INPUT);
+	for(i=0;i<4;i++)
+		pinMode(outs[i], OUTPUT);
 	while(a!=0){
 		if(digitalRead(17)==1){
 			salida();
 			a=1;
-		}
+		}else a=0;
 	}
 }
 
@@ -19,9 +27,3 @@ void salida(){
 	digitalWrite(25,digitalRead(13));
 	digitalWrite(12,digitalRead(19));
 }
-
-void fantastic(){
-	
-	
-}
-	
