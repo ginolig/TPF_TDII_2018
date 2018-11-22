@@ -9,6 +9,7 @@ void main(){
 	int a=0, i=0;
 	int ins[]={17,5,6,13,19};
 	int outs[]={23,24,25,12};
+
 	for(i=0;i<5;i++)
 		pinMode(ins[i], INPUT);
 	for(i=0;i<4;i++)
