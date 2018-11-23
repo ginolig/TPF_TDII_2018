@@ -9,27 +9,31 @@ int fd, adcVal;	//declaracion de variables para acceder al adc
 
 int main(){
 
-  if (wiringPiSetup() == -1) exit (1);
+  wiringPiSetup();
 
   fd = wiringPiI2CSetup(arduino);		// configuracion del bus I2C, inicializa el sistema I2C con el ID del dispositivo.
 
   while (1){
-  	//read ADC0
-  	wiringPiI2CReadReg8(fd, arduino + 0); //primer lectura
-  	adcVal = wiringPiI2CReadReg8(fd, arduino + 0);//segunda lectura valida
-  	printf("Pote1 = %d \n", adcVal);
-  	//read ADC1
-  	wiringPiI2CReadReg8(fd, arduino + 1);
-  	adcVal = wiringPiI2CReadReg8(fd, arduino + 1);
-  	printf("Pote2 = %d \n", adcVal);
-  	//read ADC2
-  	wiringPiI2CReadReg8(fd, arduino + 2);
-  	adcVal = wiringPiI2CReadReg8(fd, arduino + 2);
-  	printf("Pote3 = %d \n\n", adcVal);
-    //read ADC3
-  	wiringPiI2CReadReg8(fd, arduino + 3);
-  	adcVal = wiringPiI2CReadReg8(fd, arduino + 3);
-  	printf("Pote4 = %d \n\n", adcVal);
+  	//read A5
+    wiringPiI2CWrite(fd, 5);  //solicita leer la entrada analógica A5 del mux del arduino
+  	wiringPiI2CReadReg8(fd, arduino); //primer lectura
+  	adcVal = wiringPiI2CRead(fd, arduino);//segunda lectura valida
+  	printf("A5 = %d \n", adcVal);
+  	//read A4
+    wiringPiI2CWrite(fd, 4);
+  	wiringPiI2CReadReg8(fd, arduino);
+  	adcVal = wiringPiI2CRead(fd, arduino);
+  	printf("A4 = %d \n", adcVal);
+  	//read A3
+    wiringPiI2CWrite(fd, 3);
+    wiringPiI2CReadReg8(fd, arduino);
+  	adcVal = wiringPiI2CRead(fd, arduino);
+  	printf("A3 = %d \n\n", adcVal);
+    //read A2
+    wiringPiI2CWrite(fd, 2);
+    wiringPiI2CReadReg8(fd, arduino);
+  	adcVal = wiringPiI2CRead(fd, arduino);
+  	printf("A2 = %d \n\n", adcVal);
 
   	delay(500);
 
