@@ -27,6 +27,7 @@ int main(){
 		accion= getch();
 
 		if(accion==1){ //recibo datos
+			flag=0;
 			while(flag < 10000){ //while de 10 seg de espera para que el emisor aparezca para enviar 
 
 				if (digitalRead(rts)==0){ //leo si está en cero rts, de ser asi es que quiere enviar algo
@@ -51,14 +52,20 @@ int main(){
 		else if(accion==2){
 			printf("Escriba lo que desea enviar\n");
 			scanf("%s", data_out);
-			digitalWrite( cts, 0);
 			serialPrintf (file_descriptor, data_out);
+			digitalWrite( cts, 0);
+			flag=0;
+			while(flag < 10000){ //while de 10 seg de espera para que el receptor aparezca para recibir 
 
+				if (digitalRead(rts)==0) break;	//leo si está en cero rts, de ser asi es que puede recibir algo		
+			}
+			if(flag==10000) serialFlush(file_descriptor);
+			
 		}
 
 	} while(accion != 3);
 
 	serialClose(file_descriptor);
 	digitalWrite( cts, 1);
-
+	serialFlush(file_descriptor);
 }
