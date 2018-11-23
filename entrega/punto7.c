@@ -16,22 +16,22 @@ int main(){
   while (1){
   	//read A5
     wiringPiI2CWrite(fd, 5);  //solicita leer la entrada analógica A5 del mux del arduino
-  	wiringPiI2CReadReg8(fd, arduino); //primer lectura
+  	wiringPiI2CRead(fd, arduino); //primer lectura
   	adcVal = wiringPiI2CRead(fd, arduino);//segunda lectura valida
   	printf("A5 = %d \n", adcVal);
   	//read A4
     wiringPiI2CWrite(fd, 4);
-  	wiringPiI2CReadReg8(fd, arduino);
+  	wiringPiI2CRead(fd, arduino);
   	adcVal = wiringPiI2CRead(fd, arduino);
   	printf("A4 = %d \n", adcVal);
   	//read A3
     wiringPiI2CWrite(fd, 3);
-    wiringPiI2CReadReg8(fd, arduino);
+    wiringPiI2CRead(fd, arduino);
   	adcVal = wiringPiI2CRead(fd, arduino);
   	printf("A3 = %d \n\n", adcVal);
     //read A2
     wiringPiI2CWrite(fd, 2);
-    wiringPiI2CReadReg8(fd, arduino);
+    wiringPiI2CRead(fd, arduino);
   	adcVal = wiringPiI2CRead(fd, arduino);
   	printf("A2 = %d \n\n", adcVal);
 
