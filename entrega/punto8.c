@@ -59,7 +59,10 @@ int main(){
 
 				if (digitalRead(rts)==0) break;	//leo si está en cero rts, de ser asi es que puede recibir algo		
 			}
-			if(flag==10000) serialFlush(file_descriptor);
+			if(flag==10000){
+				serialFlush(file_descriptor);
+				printf("No se ha podido establecer la conexion!\nSe ha vaciado el buffer de datos.\n");
+			}
 			
 		}
 
