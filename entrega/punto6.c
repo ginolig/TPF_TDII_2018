@@ -31,12 +31,10 @@ void carrera(){
 
     while(digitalRead(17) != 1){
       for (i = 0; i < 16; i++){
-        for(j=0;j<8;j++){
+        for(j=0;j<8;j++)
           digitalWrite(pins_leds[j], lut[i][j]);
-          delay(1000);
-        }
-
-        if (digitalRead(17) == 1) break;
       }
+       if (digitalRead(17) == 1) break;
+       delay(1000);
     }
 }
