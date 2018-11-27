@@ -15,8 +15,10 @@ void main(){
 	for(i=0;i<4;i++)
 		pinMode(outs[i], OUTPUT);
 	while(1){
-		if(digitalRead(17)==1)
-			salida();		
+		if(digitalRead(17)==1){
+			salida();
+			break;
+			}		
 	}
 }
 
