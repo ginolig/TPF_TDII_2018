@@ -14,7 +14,7 @@ int main(){
 	pinMode(rts, INPUT) ;
 	pinMode(cts, OUTPUT) ;
 	int file_descriptor, rts, cts, accion, caracteres, data_in, flag;
-	char *  data_out[100];
+	char  data_out[100];
 
 	printf("Inicializando puerto...\n");
 
