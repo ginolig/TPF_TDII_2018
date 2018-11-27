@@ -34,8 +34,8 @@ void main(){
         for(j=0;j<8;j++)
           digitalWrite(pins_leds[j], lut[i][j]);
          delay(500);
-      }
-       if (digitalRead(17) == 1) break;
-       delay(500);
+	 if (digitalRead(17) == 1) break;
+	}
+
     }
 }
