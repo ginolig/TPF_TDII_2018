@@ -61,6 +61,8 @@ int main(){
 			while(flag < 10000){ //while de 10 seg de espera para que el receptor aparezca para recibir 
 
 				if (digitalRead(rts)==0) break;	//leo si está en cero rts, de ser asi es que puede recibir algo		
+			delay(1);
+			flag=flag+1;
 			}
 			if(flag==10000){
 				serialFlush(file_descriptor);
