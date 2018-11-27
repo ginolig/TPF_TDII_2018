@@ -26,9 +26,9 @@ int main(){
 	}
 		do {
 		printf("Si usted desea recibir datos presione 1, si desea enviar presione 2, para salir presione 3\n");
-		accion= getch();
+		accion= getchar();
 
-		if(accion==1){ //recibo datos
+		if(accion=='1'){ //recibo datos
 			flag=0;
 			while(flag < 10000){ //while de 10 seg de espera para que el emisor aparezca para enviar 
 
@@ -52,7 +52,7 @@ int main(){
 			}
 		}
 
-		else if(accion==2){
+		else if(accion=='2'){
 			printf("Escriba lo que desea enviar\n");
 			scanf("%s", data_out);
 			serialPrintf (file_descriptor, *data_out);
@@ -69,7 +69,7 @@ int main(){
 			
 		}
 
-	} while(accion != 3);
+	} while(accion != '3');
 
 	serialClose(file_descriptor);
 	digitalWrite( cts, 1);
