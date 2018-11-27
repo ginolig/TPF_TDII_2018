@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <wiringPi.h>
 
-void carrera(){
+void main(){
    wiringPiSetupGpio() ;
     int i=0, j=0;
     int lut[16][8]={
@@ -33,8 +33,9 @@ void carrera(){
       for (i = 0; i < 16; i++){
         for(j=0;j<8;j++)
           digitalWrite(pins_leds[j], lut[i][j]);
+         delay(500);
       }
        if (digitalRead(17) == 1) break;
-       delay(1000);
+       delay(500);
     }
 }
