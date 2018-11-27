@@ -60,7 +60,7 @@ int main(){
 			flag=0;
 			while(flag < 10000){ //while de 10 seg de espera para que el receptor aparezca para recibir 
 
-				if (digitalRead(rts)==0) break;	//leo si está en cero rts, de ser asi es que puede recibir algo		
+				if (digitalRead(10)==0) break;	//leo si está en cero rts, de ser asi es que puede recibir algo		
 			delay(1);
 			flag=flag+1;
 			}
@@ -68,6 +68,8 @@ int main(){
 				serialFlush(file_descriptor);
 				printf("No se ha podido establecer la conexion!\nSe ha vaciado el buffer de datos.\n");
 			}
+
+
 			
 		}
 
