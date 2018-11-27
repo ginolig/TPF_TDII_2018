@@ -6,7 +6,7 @@
 int cts=9;
 int rts=10;
 
-char   * uart  =  "/dev/ttyACM0";
+char   * uart  =  "/dev/ttyS0";
 
 int main(){
 
