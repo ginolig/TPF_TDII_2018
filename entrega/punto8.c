@@ -2,16 +2,18 @@
 #include <stdlib.h>
 #include <wiringPi.h>
 #include <wiringSerial.h>
-#define cts  9
-#define rts 10
-char   * uart  =  "/dev/ttyACM0"
+#include <curses.h>
+int cts=9;
+int rts=10;
+
+char   * uart  =  "/dev/ttyACM0";
 
 int main(){
 
 	wiringPiSetupGpio ();
 	pinMode(rts, INPUT) ;
 	pinMode(cts, OUTPUT) ;
-	int file_descriptor, rts, cts, accion, caracteres, data_in;
+	int file_descriptor, rts, cts, accion, caracteres, data_in, flag;
 	char *  data_out[100];
 
 	printf("Inicializando puerto...\n");
@@ -40,6 +42,7 @@ int main(){
 
 			}
 
+
 			if (flag!=10000){ //hago uso de una artimaña. si flag es 10000 significa que no se establecio conexion en los 10seg
 				caracteres=serialDataAvail(file_descriptor); //me fijo cuantos caracteres hay dosponibles para enviar
 				for (int i = 0; i < caracteres; ++i){
@@ -52,7 +55,7 @@ int main(){
 		else if(accion==2){
 			printf("Escriba lo que desea enviar\n");
 			scanf("%s", data_out);
-			serialPrintf (file_descriptor, data_out);
+			serialPrintf (file_descriptor, *data_out);
 			digitalWrite( cts, 0);
 			flag=0;
 			while(flag < 10000){ //while de 10 seg de espera para que el receptor aparezca para recibir 
@@ -71,4 +74,5 @@ int main(){
 	serialClose(file_descriptor);
 	digitalWrite( cts, 1);
 	serialFlush(file_descriptor);
+return 0;
 }
