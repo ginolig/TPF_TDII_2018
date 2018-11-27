@@ -55,7 +55,7 @@ int main(){
 		else if(accion=='2'){
 			printf("Escriba lo que desea enviar\n");
 			scanf("%s", data_out);
-			serialPrintf (file_descriptor, *data_out);
+			serialPrintf (file_descriptor, data_out);
 			digitalWrite( cts, 0);
 			flag=0;
 			while(flag < 10000){ //while de 10 seg de espera para que el receptor aparezca para recibir 
