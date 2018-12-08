@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-extern int	ingreso();
+extern int ingreso();
 extern int choice();
 extern void internal();
 extern void external();
@@ -10,8 +10,8 @@ int state, place;
 
 state= ingreso();
 
-if(state=1) {
-	place= choice();
+if(state==1) {
+	place=choice();
 
 	 if(place==0) internal();
 	 else if (place==1) external();
@@ -19,5 +19,3 @@ if(state=1) {
 
 
 }
-
-

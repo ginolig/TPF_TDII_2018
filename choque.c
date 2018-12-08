@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <wiringPi.h>
 
-void fantastic(int t){
+void choque(int t){
     wiringPiSetupGpio() ;
     int i=0;
     int pins_leds[]={23,24,25,12,16,20,21,26};
@@ -20,5 +20,6 @@ void fantastic(int t){
 
         if (digitalRead(17) == 1) break;
       }
+      delay(1000);
     }
 }
