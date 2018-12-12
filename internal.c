@@ -10,7 +10,7 @@ extern void sec1();
 extern void sec2();
 
 void main() {
-int op, tiempo[]={200,300,500,750};
+int op, tiempo[]={200,300,500,750,100,100,100,100};
 	system("clear");
 
 	printf("Ingrese el modo que desea iniciar:");
