@@ -6,6 +6,7 @@
 extern int adc();
 
 void fantastic(){
+    initscr();
     wiringPiSetupGpio() ;
     int i, j, retardo, flag=0;
     char c;
@@ -46,4 +47,5 @@ void fantastic(){
       }
     }
     for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 0);
+    endwin();
 }
