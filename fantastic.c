@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
+#include <curses.h>
 
 extern int adc();
 
 void fantastic(){
     wiringPiSetupGpio() ;
     int i, j, retardo, flag=0;
+    char c;
     int pins_leds[]={23,24,25,12,16,20,21,26};
 
     pinMode(17, INPUT); 
@@ -24,10 +26,16 @@ void fantastic(){
         digitalWrite(pins_leds[7-i], 1);
 
         if (digitalRead(17) == 1) break;
-        for (j = 1; i < 50; ++i) //hago el retardo dividido 50 veces por si aprito para apagar cuando este esta sucediendo
+        for (j = 1; i < retardo; ++i) //hago el retardo dividido retardo por si aprieto para apagar cuando este esta sucediendo
         {
-            delay(retardo/50);
-            if (digitalRead(17) == 1) flag=1;  
+            delay(retardo/retardo);
+            if (digitalRead(17) == 1) flag=1; 
+            noecho();
+            flushinp();
+            if(c = getch() == '\033')   if( c = getch() == '[')      if( c = getch() == 'A') retardo+=50; //modo de observar si se pulso flecha arriba
+            if(c = getch() == '\033')   if( c = getch() == '[')      if( c = getch() == 'B') retardo+=50; //modo de observar si se pulso flecha abajo
+            echo(); 
+
         }
         
 
