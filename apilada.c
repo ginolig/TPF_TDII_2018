@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <wiringPi.h>
 #include <curses.h>
+extern int adc();
 
 void apilada(){
     initscr();
