@@ -2,23 +2,37 @@
 #include <stdlib.h>
 #include <wiringPi.h>
 
-void fantastic(int t){
+extern int adc();
+
+void fantastic(){
     wiringPiSetupGpio() ;
-    int i=0;
+    int i, j, retardo, flag=0;
     int pins_leds[]={23,24,25,12,16,20,21,26};
-    pinMode(17, INPUT);
-    for(i=0;i<8;i++)
+
+    pinMode(17, INPUT); 
+    for(i=0;i<8;i++)        //defino como entrada pines
       pinMode(pins_leds[i], OUTPUT);
+
+    retardo = adc() * 8;
 
     while(digitalRead(17) != 1){
       for (i = 0; i < 8; i++){
         digitalWrite(pins_leds[i], 1);
         digitalWrite(pins_leds[7-i], 1);
-        delay(t);
+
+        if (digitalRead(17) == 1) break;
+        for (j = 0; i < 49; ++i) //hago el retardo dividido 50 veces por si aprito para apagar cuando este esta sucediendo
+        {
+            delay(retardo/50);
+            if (digitalRead(17) == 1) flag=1;  
+        }
+        
+
         digitalWrite(pins_leds[i], 0);
         digitalWrite(pins_leds[7-i], 0);
 
-        if (digitalRead(17) == 1) break;
+        if (digitalRead(17) == 1 || flag == 1) break;
       }
     }
+    for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 0);
 }
