@@ -6,6 +6,7 @@
 void apilada(){
     initscr();
     wiringPiSetupGpio();
+    char c;
     int i=0, max=8, retardo;
     int pins_leds[]={23,24,25,12,16,20,21,26};
     pinMode(17, INPUT);
