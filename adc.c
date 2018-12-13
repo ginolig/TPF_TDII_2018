@@ -5,7 +5,7 @@
 
 const char arduino = 0x22; // direccion base
 
-void adc(){
+int adc(){
 
   wiringPiSetupGpio();
   pinMode(17, INPUT);
