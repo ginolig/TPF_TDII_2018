@@ -14,6 +14,9 @@ void fantastic(){
       pinMode(pins_leds[i], OUTPUT);
 
     retardo = adc() * 8;
+    system("clear");
+    printf("USTED ESTA HACIENDO USO DEL INIGUALABLE AUTO FANTASTICO\n");
+    printf("Pulse el maravilloso botón de la plaqueta para salir\n");
 
     while(digitalRead(17) != 1){
       for (i = 0; i < 8; i++){
@@ -21,7 +24,7 @@ void fantastic(){
         digitalWrite(pins_leds[7-i], 1);
 
         if (digitalRead(17) == 1) break;
-        for (j = 0; i < 49; ++i) //hago el retardo dividido 50 veces por si aprito para apagar cuando este esta sucediendo
+        for (j = 1; i < 50; ++i) //hago el retardo dividido 50 veces por si aprito para apagar cuando este esta sucediendo
         {
             delay(retardo/50);
             if (digitalRead(17) == 1) flag=1;  
