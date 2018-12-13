@@ -1,16 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern void adc(int *tiempo);
-extern void fantastic(int t);
-extern void carrera(int t);
-extern void apilada(int t);
-extern void choque(int t);
+	
+extern void fantastic();
+extern void carrera();
+extern void apilada();
+extern void choque(;
 extern void sec1();
 extern void sec2();
 
 void main() {
-int op, tiempo[]={200,300,500,750,100,100,100,100};
 
 	do{
 		system("clear");
@@ -33,19 +32,19 @@ int op, tiempo[]={200,300,500,750,100,100,100,100};
 
 			case 1:
 			printf("<<< El auto fantastico >>>\n");
-			fantastic(tiempo[op-1]);
+			fantastic();
 			break;
 			case 2:
 			printf("<<< La carrera >>>\n");
-			carrera(tiempo[op-1]);
+			carrera();
 			break;
 			case 3:
 			printf("<<< La apilada >>>\n");
-			apilada(tiempo[op-1]);
+			apilada();
 			break;
 			case 4:
 			printf("<<< El choque >>>\n");
-			choque(tiempo[op-1]);
+			choque();
 			break;
 			case 5:
 			sec1();
@@ -56,7 +55,7 @@ int op, tiempo[]={200,300,500,750,100,100,100,100};
 			case 7:
 			case 8:
 			case 9:
-			adc(tiempo);
+			adc();
 			break;
 			case 10:
 			break;
