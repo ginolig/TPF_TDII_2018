@@ -9,7 +9,7 @@ int adc(){
 
   wiringPiSetupGpio();
   pinMode(17, INPUT);
-  int l=0, op=0,fd, adcVal;;
+  int l=0, op=0,fd, adcVal;
 
   fd = wiringPiI2CSetup(arduino);		// configuracion del bus I2C, inicializa el sistema I2C con el ID del dispositivo.	
   if(fd != (-1)) {
