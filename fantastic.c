@@ -18,7 +18,7 @@ void main(){
     for(i=0;i<8;i++)        //defino como entrada pines
       pinMode(pins_leds[i], OUTPUT);
 
-    retardo = (adc() % 10) * 10; //para que sea multiplo de 10 y no nos complique la vida
+    retardo = (adc() / 10) * 10; //para que sea multiplo de 10 y no nos complique la vida
  
   
  system("clear");
