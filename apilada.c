@@ -6,7 +6,7 @@
 extern int adc();
 extern int kbhit();
 
-int main(){
+int apilada(){
 
 	wiringPiSetupGpio();
 	char c;
