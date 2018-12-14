@@ -51,7 +51,7 @@ void main(){
             delay(500);
 
 
-        for (j = 4; j < 8; j++){
+        for (j = 7; j > 3; j--){
             digitalWrite(pins_leds[j], 0);
             delay(350);
             }
