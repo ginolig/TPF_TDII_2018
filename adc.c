@@ -9,7 +9,7 @@ int adc(){
 
   wiringPiSetupGpio();
   pinMode(17, INPUT);
-  int l=0, op=0,fd, adcVal;
+  int l=0, op=0,fd, adcVal=-1;
 
   fd = wiringPiI2CSetup(arduino);		// configuracion del bus I2C, inicializa el sistema I2C con el ID del dispositivo.	
   if(fd != (-1)) {
@@ -17,7 +17,7 @@ int adc(){
   	wiringPiI2CRead(fd); //primer lectura
   	adcVal = wiringPiI2CRead(fd);//segunda lectura valida
   }
-  else {
+  if(adcVal == (-1)){
     printf("No se pudo leer el valor del potenciometro...\n");
     adcVal=125;
   }
