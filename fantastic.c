@@ -3,11 +3,13 @@
 #include <wiringPi.h>
 #include <curses.h>
 
-extern int adc();
+// extern int adc();
+extern int kbhit();
 
-void fantastic(){
-    initscr();
+void main(){
+  
     wiringPiSetupGpio() ;
+ 
     int i, j, retardo, flag=0;
     char c;
     int pins_leds[]={23,24,25,12,16,20,21,26};
@@ -16,26 +18,41 @@ void fantastic(){
     for(i=0;i<8;i++)        //defino como entrada pines
       pinMode(pins_leds[i], OUTPUT);
 
-    retardo = adc() * 8;
-    system("clear");
+    retardo = 200;
+ 
+  
+ system("clear");
     printf("USTED ESTA HACIENDO USO DEL INIGUALABLE AUTO FANTASTICO\n");
     printf("Pulse el maravilloso botón de la plaqueta para salir\n");
 
     while(digitalRead(17) != 1){
       for (i = 0; i < 8; i++){
-        digitalWrite(pins_leds[i], 1);
+   	digitalWrite(pins_leds[i], 1);
         digitalWrite(pins_leds[7-i], 1);
 
-        if (digitalRead(17) == 1) break;
-        for (j = 1; i < retardo; ++i) //hago el retardo dividido retardo por si aprieto para apagar cuando este esta sucediendo
+       if (digitalRead(17) == 1) break;
+        for (j = -1; j < retardo; ++j) //hago el retardo dividido retardo por si aprieto para apagar cuando este esta sucediendo
         {
-            delay(retardo/retardo);
-            if (digitalRead(17) == 1) flag=1; 
-            noecho();
-            flushinp();
-            if(c = getch() == '\033')   if( c = getch() == '[')      if( c = getch() == 'A') retardo+=50; //modo de observar si se pulso flecha arriba
-            if(c = getch() == '\033')   if( c = getch() == '[')      if( c = getch() == 'B') retardo+=50; //modo de observar si se pulso flecha abajo
-            echo(); 
+            delay(1);
+            if (digitalRead(17) == 1) { flag=1; break;} 
+         
+	
+	if(kbhit()){
+        system("/bin/stty raw");   
+		if( c = getchar() == '[')      
+			if( c = getchar() == 'A'){ //modo de observar si se pulso flecha abajo
+				if(retardo != 0) retardo-=10; 
+				j=-1; 
+				system("clear"); 
+				printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+			else  { //flecha arriba
+				retardo+=10; 
+				j=-1; 
+				system("clear"); 
+				printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+        system("/bin/stty cooked");
+	}
+	       	
 
         }
         
@@ -47,5 +64,5 @@ void fantastic(){
       }
     }
     for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 0);
-    endwin();
+ 
 }
