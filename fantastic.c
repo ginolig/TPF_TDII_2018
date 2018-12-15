@@ -6,7 +6,7 @@
 extern int adc();
 extern int kbhit();
 
-void main(){
+void fantastic(){
   
     wiringPiSetupGpio() ;
  
