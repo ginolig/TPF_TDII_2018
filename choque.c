@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
-#include "funciones.h"
+#include <curses.h>
 
-void choque(){
+extern int adc();
+extern int kbhit();
+
+int main(){
   
     wiringPiSetupGpio() ; //inicializo wiringPi 
     int i=0, retardo, flag, j;
@@ -24,28 +27,28 @@ void choque(){
         digitalWrite(pins_leds[i], 1);	//prendo de izq a derecha
         digitalWrite(pins_leds[7-i], 1); //prendo de derecha a izquierda 
 	if (digitalRead(17) == 1) break; //si aprieto boton sale
-		for (j = -1; j < retardo; ++j) //bucle de retardos 1 para poder salir cuando quiera
-	        {
+		
+		for (j = -1; j < retardo; ++j)  {  //hago el retardo dividido retardo por si aprieto para apagar cuando este esta sucediendo
 	            delay(1);
 	            if (digitalRead(17) == 1) { flag=1; break;} 
 	         
 		
-		if(kbhit()){ //detecto si pulso una tecliña
-	        system("/bin/stty raw");   //el buffer se vacia sin esperar intro
-			if( c = getchar() == '[')      
-				if( c = getchar() == 'A'){ //modo de observar si se pulso flecha abajo //detecto si es flecha arriba y disminuyo retardo
-					if(retardo != 0) retardo-=10; 
-					j=-1; 
-					system("clear"); 
-					printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
-				else  { 		//detecto si es flecha abajo y aumento retardo
-					retardo+=10; 
-					j=-1; 
-					system("clear"); 
-					printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
-	        system("/bin/stty cooked"); //pongo el buffer como corresponde
-		}
-        	}
+			if(kbhit()){
+	        	system("/bin/stty raw");   
+				if( c = getchar() == '[')      c = getchar();
+					if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+						if(retardo != 0) retardo-=10; 
+						j=-1; 
+						system("clear"); 
+						printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+					else if ( c == 'B') { //flecha arriba
+						retardo+=10; 
+						j=-1; 
+						system("clear"); 
+						printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+	      				system("/bin/stty cooked");
+			}
+		}	
 
         digitalWrite(pins_leds[i], 0);
         digitalWrite(pins_leds[7-i], 0);
@@ -53,26 +56,28 @@ void choque(){
         if (digitalRead(17) == 1 || flag == 1) break;
       }
 
-		for (j = -1; j < 300; ++j){ //ESTE BUCLE ES EL DE ESPERA A QUE VUELVA A ARRANCAR LA SECUENCIA funciona igual al anterior
+		
+		for (j = -1; j < 300; ++j)  {  //hago el retardo dividido retardo por si aprieto para apagar cuando este esta sucediendo
 	            delay(1);
 	            if (digitalRead(17) == 1) { flag=1; break;} 
 	         
 		
-		if(kbhit()){
-	        system("/bin/stty raw");   
-			if( c = getchar() == '[')      
-				if( c = getchar() == 'A'){ //modo de observar si se pulso flecha abajo
-					if(retardo != 0) retardo-=10; 
-					system("clear"); 
-					printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
-				else  { //flecha arriba
-					retardo+=10; 
-					system("clear"); 
-					printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
-	        system("/bin/stty cooked");
-		}
-        	}
-        
+			if(kbhit()){
+	        	system("/bin/stty raw");   
+				if( c = getchar() == '[')      c = getchar();
+					if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+						if(retardo != 0) retardo-=10; 
+						system("clear"); 
+						printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+					else if ( c == 'B') { //flecha arriba
+						retardo+=10; 
+						system("clear"); 
+						printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+	      				system("/bin/stty cooked");
+			}
+		}	
+
+    
     }
 
     for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 0);
