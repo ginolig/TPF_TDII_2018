@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
-#include <curses.h>
+#include "funciones.h"
 
-extern int adc();
-extern int kbhit();
-
-int main(){
+void choque(){
   
     wiringPiSetupGpio() ; //inicializo wiringPi 
     int i=0, retardo, flag, j;
