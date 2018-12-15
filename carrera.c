@@ -5,7 +5,7 @@
 extern int adc();
 extern int kbhit();
 
-void main(int t){
+void carrera(){
 
   wiringPiSetupGpio() ;
   char c;
