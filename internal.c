@@ -1,15 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "funciones.h"
 
-	
-extern void fantastic();
-extern void carrera();
-extern void apilada();
-extern void choque(;
-extern void sec1();
-extern void sec2();
-
-void main() {
+void internal() {
 
 	do{
 		system("clear");
@@ -20,8 +13,8 @@ void main() {
 		printf("\n\t 3- La apilada");
 		printf("\n\t 4- El choque");
 		printf("\n\t 5- Personalizado 1");
-		printf("\n\t 6- Personalizado 2");
-		printf("\n\t 7- Personalizado 3");
+		printf("\n\t 6- Entropia");
+		printf("\n\t 7- Eins Zwei Polizei");
 		printf("\n\t 8- Personalizado 4");
 		printf("\n\t 9- Seteo de velocidades mediante el uso de potenciometro");
 		printf("\n\t 10- Salir. \n\t ");
@@ -53,6 +46,7 @@ void main() {
 			sec2();
 			break;
 			case 7:
+			yuta();
 			case 8:
 			case 9:
 			adc();
