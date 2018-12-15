@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
-//#include <curses.h>
+#include "funciones.h"
 
-extern int adc();
-extern int kbhit();
-
-int apilada(){
+void apilada(){
 
 	wiringPiSetupGpio();
 	char c;
