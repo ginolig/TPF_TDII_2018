@@ -11,3 +11,4 @@ extern int kbhit();
 extern void sec1();
 extern void sec2();
 extern void yuta();
+extern void competencia();
