@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
+#include "funciones.h"
 
-extern int adc();
-extern int kbhit();
-
-void carrera(int t){
+void carrera(){
 
   wiringPiSetupGpio() ;
   char c;
