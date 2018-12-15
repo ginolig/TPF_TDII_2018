@@ -1,9 +1,5 @@
 #include <stdio.h>
-
-extern int ingreso();
-extern int choice();
-extern void internal();
-extern void external();
+#include "funciones.h"
 
 void main(){
 int state, place;
