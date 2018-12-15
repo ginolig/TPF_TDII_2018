@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
-#include "funciones.h"
+#include <curses.h>
+
+extern int adc();
+extern int kbhit();
 
 void fantastic(){
   
@@ -36,22 +39,20 @@ void fantastic(){
 	
 	if(kbhit()){
         system("/bin/stty raw");   
-		if( c = getchar() == '[')      
-			if( c = getchar() == 'A'){ //modo de observar si se pulso flecha abajo
+		if( c = getchar() == '[')      c = getchar();
+			if( c  == 'A'){ //modo de observar si se pulso flecha abajo
 				if(retardo != 0) retardo-=10; 
 				j=-1; 
 				system("clear"); 
 				printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
-			else  { //flecha arriba
+			else if ( c == 'B') { //flecha arriba
 				retardo+=10; 
 				j=-1; 
 				system("clear"); 
 				printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
         system("/bin/stty cooked");
+		}
 	}
-	       	
-
-        }
         
 
         digitalWrite(pins_leds[i], 0);
