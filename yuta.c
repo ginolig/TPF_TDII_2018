@@ -1,15 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
+#include "funciones.h"
 
-extern int adc();
-extern int kbhit();
 int delay_mio();
 
 int i, flag, retardo;
 
 
-void main(){
+void yuta(){
 	wiringPiSetupGpio() ;
 	int  k;
 	int pins_leds[]={23,24,25,12,16,20,21,26};
