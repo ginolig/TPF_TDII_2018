@@ -8,6 +8,9 @@ OBJECTS = TPfinal.o adc.o ingreso.o choice.o internal.o external.o fantastic.o c
 
 CFLAGS = -lwiringPi -pthread -lcrypt -lm -lrt -lncurses
 
+final: $(OBJECTS) funciones.h
+	$(CC) $(CFLAGS) $(OBJECTS) -o final
+
 TPfinal.o: TPfinal.c funciones.h
 	$(CC) $(CFLAGS) $(OBJECTS) TPfinal.c -c -o TPfinal.o
 	
@@ -46,9 +49,6 @@ choque.o: choque.c funciones.h
 	
 yuta.o: yuta.c funciones.h
 	$(CC) $(CFLAGS) $(OBJECTS) yuta.c -c -o yuta.o
-	
-final: $(OBJECTS) funciones.h
-	$(CC) $(CFLAGS) $(OBJECTS) -o final
 
 clean:
 	rm *.o
