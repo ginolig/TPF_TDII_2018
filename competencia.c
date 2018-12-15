@@ -4,7 +4,7 @@
 #include "funciones.h"
 
 
-void main(){
+void competencia(){
 	wiringPiSetupGpio() ;
 	char c;
 	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, retardo, balance, posicion=6;
@@ -25,7 +25,7 @@ void main(){
 
 	pinMode(17, INPUT);
 	
-	retardo =200; //adc()*2000;
+	retardo = adc() * 2;
 
 	printf("USTED ESTA HACIENDO USO DE LA COMPETENCIA ROMPEAMISTADES\n");
 	printf("Debe llevarse las luces para su costado apretando repetidamente las flechas\n");
