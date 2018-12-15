@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
-
-extern int adc();
-extern int kbhit();
+#include "funciones.h"
 
 void carrera(){
 
