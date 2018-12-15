@@ -8,11 +8,11 @@ OBJECTS = TPfinal.o adc.o ingreso.o choice.o internal.o external.o fantastic.o c
 
 CFLAGS = -lwiringPi -pthread -lcrypt -lm -lrt -lncurses
 
-TPfinal.o: $(OBJECTS)
+TPfinal.o: TPfinal.c funciones.h
 	$(CC) $(CFLAGS) $(OBJECTS) TPfinal.c -c -o TPfinal.o
 	
-adc.o: $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) adc.c -c -o adc.o
+adc.o: adc.c
+	$(CC) $(CFLAGS) adc.c -c -o adc.o
 	
 ingreso.o: ingreso.c
 	$(CC) $(CFLAGS) ingreso.c -c -o ingreso.o
@@ -29,25 +29,25 @@ sec1.o: sec1.c
 sec2.o: sec2.c
 	$(CC) $(CFLAGS) sec2.c -c -o sec2.o
 	
-internal.o: $(OBJECTS)
+internal.o: internal.c funciones.h
 	$(CC) $(CFLAGS) $(OBJECTS) internal.c -c -o internal.o
 	
-fantastic.o: $(OBJECTS)
+fantastic.o: fantastic.c funciones.h
 	$(CC) $(CFLAGS) $(OBJECTS) fantastic.c -c -o fantastic.o
 	
-carrera.o: $(OBJECTS)
+carrera.o: carrera.c funciones.h
 	$(CC) $(CFLAGS) $(OBJECTS) carrera.c -c -o carrera.o
 	
-apilada.o: $(OBJECTS)
+apilada.o: apilada.c funciones.h
 	$(CC) $(CFLAGS) $(OBJECTS) apilada.c -c -o apilada.o
 	
-choque.o: $(OBJECTS)
+choque.o: choque.c funciones.h
 	$(CC) $(CFLAGS) $(OBJECTS) choque.c -c -o choque.o
 	
-yuta.o: $(OBJECTS)
+yuta.o: yuta.c funciones.h
 	$(CC) $(CFLAGS) $(OBJECTS) yuta.c -c -o yuta.o
 	
-final: $(OBJECTS)
+final: $(OBJECTS) funciones.h
 	$(CC) $(CFLAGS) $(OBJECTS) -o final
 
 clean:
