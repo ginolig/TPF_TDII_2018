@@ -65,21 +65,21 @@ int delay_mio(){
 	            if (digitalRead(17) == 1) { flag=1; break;} 
 	         
 		
-		if(kbhit()){ //detecto si pulso una tecliña
-	        system("/bin/stty raw");   //el buffer se vacia sin esperar intro
-			if( c = getchar() == '[')      
-				if( c = getchar() == 'A'){ //modo de observar si se pulso flecha abajo //detecto si es flecha arriba y disminuyo retardo
-					if(retardo != 0) retardo-=10; 
-					j=-1; 
-					system("clear"); 
-					printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
-				else  { 		//detecto si es flecha abajo y aumento retardo
-					retardo+=10; 
-					j=-1; 
-					system("clear"); 
-					printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
-	        system("/bin/stty cooked"); //pongo el buffer como corresponde
+			if(kbhit()){
+		        system("/bin/stty raw");   
+				if( c = getchar() == '[')      c = getchar();
+					if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+						if(retardo != 0) retardo-=10; 
+						j=-1; 
+						system("clear"); 
+						printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+					else if ( c == 'B') { //flecha arriba
+						retardo+=10; 
+						j=-1; 
+						system("clear"); 
+						printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+		        system("/bin/stty cooked");
 		}
-        	}
+        }
 
 }
