@@ -12,3 +12,5 @@ extern void sec1();
 extern void sec2();
 extern void yuta();
 extern void competencia();
+extern void intensidad();
+extern void contador();

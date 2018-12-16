@@ -10,6 +10,10 @@ void sec2(){
     int i=0, pin=0;
     int pins_leds[]={23,24,25,12,16,20,21,26};
     int stat[]={0,0,0,0,0,0,0,0};
+
+    printf("USTED ESTA PRESENCIANDO LOS MISTERIOS DE LA ENTROPIA\n");
+    printf("Pulse el maravilloso botón de la plaqueta para salir\n");
+
     pinMode(17, INPUT);
     for(i=0;i<8;i++)
       pinMode(pins_leds[i], OUTPUT);

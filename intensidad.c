@@ -4,23 +4,24 @@
 #include "funciones.h"
 
 
-void main(){
+void intensidad(){
 	wiringPiSetupGpio() ;
 	char c;
 	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, retardo, balance, posicion=6;
 balance=3;
 
 	pinMode(17, INPUT);
+	for(i=0;i<8;i++) pinMode(pins_leds[i], OUTPUT);	//declaro pines comno salidas
 
-	
+
     balance=100;
-	
+
 	while(1){
 		if (digitalRead(17) == 1) break;
 		for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 1);
-	
-		for(i=0;i<1024;i++){  
-	
+
+		for(i=0;i<1024;i++){
+
 
 			if(i==2) digitalWrite(pins_leds[balance%8], 0);
 			if(i==8) digitalWrite(pins_leds[(balance+1)%8], 0);
@@ -30,20 +31,20 @@ balance=3;
 			if(i==200) digitalWrite(pins_leds[(balance+5)%8], 0);
 			if(i==500) digitalWrite(pins_leds[(balance+6)%8], 0);
 			if(i==1023) digitalWrite(pins_leds[(balance+7)%8], 0);
-			
-			delayMicroseconds(2);	
-	
+
+			delayMicroseconds(2);
+
 		if(kbhit()){
-        system("/bin/stty raw");   
+        system("/bin/stty raw");
 		if( c = getchar() == '[')      c = getchar();
 			if( c  == 'A'){ //modo de observar si se pulso flecha abajo
-				balance+=1; 
+				balance+=1;
 				system("clear");
-				printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+				printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
 			else if ( c == 'B') { //flecha arriba
 				balance-=1;
-				system("clear"); 
-				printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+				system("clear");
+				printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
         system("/bin/stty cooked");
 		}
 
@@ -51,6 +52,5 @@ balance=3;
 	}
     for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 0);
     system("clear");
- 
-}
 
+}
