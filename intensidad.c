@@ -7,14 +7,10 @@
 void intensidad(){
 	wiringPiSetupGpio() ;
 	char c;
-	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, retardo, balance, posicion=6;
-balance=3;
+	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, retardo, balance=100, posicion=6;
 
 	pinMode(17, INPUT);
 	for(i=0;i<8;i++) pinMode(pins_leds[i], OUTPUT);	//declaro pines comno salidas
-
-
-    balance=100;
 
 	while(1){
 		if (digitalRead(17) == 1) break;
