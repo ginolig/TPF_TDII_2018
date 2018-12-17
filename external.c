@@ -11,7 +11,7 @@ char   * uart  =  "/dev/ttyS0";
 
 int external(){
 
-	wiringPiSetupGpio ();
+	wiringPiSetupGpio();
 	pinMode(rts, INPUT) ;
 	pinMode(cts, OUTPUT) ;
 	int file_descriptor, rts, cts, caracteres, data_in, flag, espera;

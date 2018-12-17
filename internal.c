@@ -3,6 +3,7 @@
 #include "funciones.h"
 
 void internal(int c) {
+	int op;
 
 	do{
 		system("clear");
