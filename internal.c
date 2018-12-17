@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "funciones.h"
 
-void internal() {
+void internal(int c) {
 
 	do{
 		system("clear");
@@ -21,7 +21,10 @@ void internal() {
 		printf("\n\t 11- Seteo de velocidades mediante el uso de potenciometro");
 		printf("\n\t 12- Salir. \n\t ");
 
-		scanf("%d", &op);
+		if(c==0)
+			scanf("%d", &op);
+		else if(c==1)
+			op=external();
 
 		switch(op){
 
