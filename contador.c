@@ -3,7 +3,7 @@
 #include <wiringPi.h>
 #include "funciones.h"
 
-void contador(){
+int contador(){
 
   wiringPiSetupGpio() ;
   char c;
@@ -282,11 +282,11 @@ void contador(){
     for (i = 0; i < 256; i++){
       for(j=0;j<8;j++)
         digitalWrite(pins_leds[j], lut[i][j]);
-        if (digitalRead(17) == 1) break;
+        if (digitalRead(17) == 1) return 0;
 	      for (j = -1; j < retardo; ++j) //hago el retardo dividido retardo por si aprieto para apagar cuando este esta sucediendo
 	        {
 	            delay(1);
-	            if (digitalRead(17) == 1) { flag=1; break;}
+	            if (digitalRead(17) == 1) { flag=1; return 0;}
 
 
 		if(kbhit()){
@@ -305,7 +305,7 @@ void contador(){
 	        system("/bin/stty cooked");
 			}
 		}
-	   if (digitalRead(17) == 1) break;
+	   if (digitalRead(17) == 1) return 0;
 	   }
 
     }
