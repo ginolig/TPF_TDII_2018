@@ -3,7 +3,7 @@
 #include <wiringPi.h>
 #include "funciones.h"
 
-void fantastic(){
+int fantastic(){
   
     wiringPiSetupGpio() ;
  
@@ -27,11 +27,11 @@ void fantastic(){
    	digitalWrite(pins_leds[i], 1);
         digitalWrite(pins_leds[7-i], 1);
 
-       if (digitalRead(17) == 1) break;
+       if (digitalRead(17) == 1) return 0;
         for (j = -1; j < retardo; ++j) //hago el retardo dividido retardo por si aprieto para apagar cuando este esta sucediendo
         {
             delay(1);
-            if (digitalRead(17) == 1) { flag=1; break;} 
+            if (digitalRead(17) == 1) { flag=1; return 0;} 
          
 	
 	if(kbhit()){
@@ -55,7 +55,7 @@ void fantastic(){
         digitalWrite(pins_leds[i], 0);
         digitalWrite(pins_leds[7-i], 0);
 
-        if (digitalRead(17) == 1 || flag == 1) break;
+        if (digitalRead(17) == 1 || flag == 1) return 0;
       }
     }
     for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 0);
