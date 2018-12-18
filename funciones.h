@@ -1,7 +1,7 @@
 extern int adc();
 extern int ingreso();
 extern int choice();
-extern void internal();
+extern int internal();
 extern int external();
 extern int fantastic();
 extern int carrera();
