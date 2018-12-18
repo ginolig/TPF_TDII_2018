@@ -5,7 +5,7 @@
 
 void rnd(int *stat);
 
-void sec2(){
+int sec2(){
     wiringPiSetupGpio() ;
     int i=0, pin=0;
     int pins_leds[]={23,24,25,12,16,20,21,26};
@@ -23,9 +23,12 @@ void sec2(){
       rnd(stat);
       for(i=0;i<8;i++){
         digitalWrite(pins_leds[i], stat[i]);
-        if (digitalRead(17) == 1) break;
+        if (digitalRead(17) == 1) return 0;
       }
-      delay(rand() % 1000 + 1);
+    	for (int i = 0; i < (rand()%1000)+1; ++i){ /*Genera numero aleatorio entre 1 y 1000*/
+      		delay(1);
+    	  	if (digitalRead(17) == 1) return 0;
+		}
     }
 }
 
