@@ -42,7 +42,7 @@ int external(){
 				serialFlush(file_descriptor);
 				printf("No se ha podido establecer la conexion!\nSe ha vaciado el buffer de datos.\n");
 			}
-		}while(data_out != 12);
+		}while(data_out != 11);
 
 	serialClose(file_descriptor);
 	digitalWrite( cts, 1);
