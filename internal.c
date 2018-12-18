@@ -31,42 +31,42 @@ void internal(int c) {
 
 			case 1:
 			fantastic();
-			break;
+			return 0; 
 			case 2:
 			carrera();
-			break;
+			return 0; 
 			case 3:
 			apilada();
-			break;
+			return 0; 
 			case 4:
 			choque();
-			break;
+			return 0; 
 			case 5:
 			sec1();
-			break;
+			return 0; 
 			case 6:
 			sec2();
-			break;
+			return 0; 
 			case 7:
 			yuta();
-			break;
+			return 0; 
 			case 8:
 			contador();
-			break;
+			return 0; 
 			case 9:
 			competencia();
-			break;
+			return 0; 
 			case 10:
 			intensidad();
-			break;
+			return 0; 
 			case 11:
 			adc();
-			break;
+			return 0; 
 			case 12:
-			break;
+			return 0; 
 			default:
 			printf("Opcion invalida!\n");
-			break;
+			return 0; 
 		}
 	}while(op=!12);
 }
