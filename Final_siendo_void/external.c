@@ -65,7 +65,7 @@ int external(){
 		if(espera == 10) printf("NO SE PUDO ESTABLECER CONEXION");
 		digitalWrite( cts, 1); //significa que no hay mas comunicacion
 		}
-	}while(data_in != 12);
+	}while(data_in != 11);
 
 	serialClose(file_descriptor);
 	digitalWrite( cts, 1);
