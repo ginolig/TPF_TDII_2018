@@ -8,7 +8,7 @@ int delay_mio();
 int i, flag, retardo;
 
 
-void yuta(){
+int yuta(){
 	wiringPiSetupGpio() ;
 	int  k;
 	int pins_leds[]={23,24,25,12,16,20,21,26};
@@ -16,7 +16,7 @@ void yuta(){
 	for(k=0;k<8;k++) pinMode(pins_leds[k], OUTPUT);
 	
 	retardo=adc()/2;
-printf("%d", retardo);
+
 
 	while(digitalRead(17) != 1){
 		for (i = 0; i < 2; i++){		
@@ -47,7 +47,7 @@ printf("%d", retardo);
         }
 	delay_mio();
 	if(i==1) delay_mio();
-        if (digitalRead(17) == 1 || flag == 1) break;
+        if (digitalRead(17) == 1 || flag == 1) return 0;
       }
     }
 
@@ -62,7 +62,7 @@ int delay_mio(){
 	        {
 	            delay(2);
 		    if(i!=1) delay(3);
-	            if (digitalRead(17) == 1) { flag=1; break;} 
+	            if (digitalRead(17) == 1) { flag=1; return 0;} 
 	         
 		
 			if(kbhit()){
