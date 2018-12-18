@@ -9,11 +9,14 @@ int intensidad(){
 	char c;
 	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, retardo, balance=100, posicion=6;
 
+	printf("Este programa genera un decrecimiento en la intesidad de los leds");
+printf("Pulse el distinguido botón de la plaqueta para salir\n (PUEDE MODIFICAR LA POSICION DEL LED MAS PRENDIDO CON LAS FLECHAS UP AND DOWN)");
+
 	pinMode(17, INPUT);
 	for(i=0;i<8;i++) pinMode(pins_leds[i], OUTPUT);	//declaro pines comno salidas
 
 	while(1){
-		if (digitalRead(17) == 1) return 0;
+		if (digitalRead(17) == 1) return 0;printf("Pulse el distinguido botón de la plaqueta para salir\n (PUEDE MODIFICAR LAS VELOCIDADES CON LAS FLECHAS UP AND DOWN)");
 		for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 1);
 
 		for(i=0;i<1024;i++){
@@ -36,17 +39,10 @@ int intensidad(){
 			if( c  == 'A'){ //modo de observar si se pulso flecha abajo
 				balance+=1;
 				system("clear");
-				printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+				printf("Pulse el distinguido botón de la plaqueta para salir\n (PUEDE MODIFICAR LA POSICION DEL LED MAS PRENDIDO CON LAS FLECHAS UP AND DOWN)");}
 			else if ( c == 'B') { //flecha arriba
 				balance-=1;
 				system("clear");
-				printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+				printf("Pulse el distinguido botón de la plaqueta para salir\n (PUEDE MODIFICAR LA POSICION DEL LED MAS PRENDIDO CON LAS FLECHAS UP AND DOWN)");}
         system("/bin/stty cooked");
-		}
-
-		}
-	}
-    for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 0);
-    system("clear");
-
-}
+		
