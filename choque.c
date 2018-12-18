@@ -3,7 +3,7 @@
 #include <wiringPi.h>
 #include "funciones.h"
 
-void choque(){
+int choque(){
   
     wiringPiSetupGpio() ; //inicializo wiringPi 
     int i=0, retardo, flag, j;
@@ -13,7 +13,7 @@ void choque(){
     retardo = adc() ; //llamo al adc para ver su valo, si falla la comunicacion 125
     system("clear");
     printf("SIENTE EL CHOQUE\n");
-    printf("Pulse el maravilloso botón de la plaqueta para salir\n");
+	printf("Pulse el distinguido botón de la plaqueta para salir\n (PUEDE MODIFICAR LAS VELOCIDADES CON LAS FLECHAS UP AND DOWN)");
 
     pinMode(17, INPUT);
     for(i=0;i<8;i++) pinMode(pins_leds[i], OUTPUT);	//declaro pines comno salidas
@@ -23,11 +23,11 @@ void choque(){
       for (i = 0; i < 8; i++){
         digitalWrite(pins_leds[i], 1);	//prendo de izq a derecha
         digitalWrite(pins_leds[7-i], 1); //prendo de derecha a izquierda 
-	if (digitalRead(17) == 1) break; //si aprieto boton sale
+	if (digitalRead(17) == 1) return 0; //si aprieto boton sale
 		
 		for (j = -1; j < retardo; ++j)  {  //hago el retardo dividido retardo por si aprieto para apagar cuando este esta sucediendo
 	            delay(1);
-	            if (digitalRead(17) == 1) { flag=1; break;} 
+	            if (digitalRead(17) == 1) { flag=1; return 0;} 
 	         
 		
 			if(kbhit()){
@@ -50,13 +50,13 @@ void choque(){
         digitalWrite(pins_leds[i], 0);
         digitalWrite(pins_leds[7-i], 0);
 
-        if (digitalRead(17) == 1 || flag == 1) break;
+        if (digitalRead(17) == 1 || flag == 1) return 0;
       }
 
 		
 		for (j = -1; j < 300; ++j)  {  //hago el retardo dividido retardo por si aprieto para apagar cuando este esta sucediendo
 	            delay(1);
-	            if (digitalRead(17) == 1) { flag=1; break;} 
+	            if (digitalRead(17) == 1) { flag=1; return 0;} 
 	         
 		
 			if(kbhit()){
