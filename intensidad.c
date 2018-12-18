@@ -4,7 +4,7 @@
 #include "funciones.h"
 
 
-void intensidad(){
+int intensidad(){
 	wiringPiSetupGpio() ;
 	char c;
 	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, retardo, balance=100, posicion=6;
