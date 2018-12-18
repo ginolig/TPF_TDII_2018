@@ -16,6 +16,9 @@ void yuta(){
 	for(k=0;k<8;k++) pinMode(pins_leds[k], OUTPUT);
 	
 	retardo=adc()/2;
+	
+	printf("USTED SE A COMUNICADO CON LA COMISARIA\n");
+	printf("Pulse el maravilloso botón de la plaqueta para salir\n");
 
 
 	while(digitalRead(17) != 1){
