@@ -4,7 +4,7 @@
 #include "funciones.h"
 
 
-void intensidad(){
+int intensidad(){
 	wiringPiSetupGpio() ;
 	char c;
 	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, retardo, balance=100, posicion=6;
@@ -13,7 +13,7 @@ void intensidad(){
 	for(i=0;i<8;i++) pinMode(pins_leds[i], OUTPUT);	//declaro pines comno salidas
 
 	while(1){
-		if (digitalRead(17) == 1) break;
+		if (digitalRead(17) == 1) return 0;
 		for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 1);
 
 		for(i=0;i<1024;i++){
