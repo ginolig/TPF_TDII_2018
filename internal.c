@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "funciones.h"
 
-void internal(int c) {
+int internal(int c) {
 	int op;
 
 	do{
