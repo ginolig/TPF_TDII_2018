@@ -4,6 +4,7 @@
 
 int internal(int c) {
 	int op;
+	system("clear"); 
 
 	do{
 		system("clear");
@@ -23,50 +24,38 @@ int internal(int c) {
 		printf("\n\t 12- Salir. \n\t ");
 
 		if(c==0)
-			scanf("%d", &op);
-		else if(c==1)
+			system("/bin/stty raw");   
+			while((c = getchar()) == '\n');
+			system("/bin/stty cooked");
 			op=external();
 
 		switch(op){
 
 			case 1:
 			fantastic();
-			return 0; 
 			case 2:
 			carrera();
-			return 0; 
 			case 3:
 			apilada();
-			return 0; 
 			case 4:
 			choque();
-			return 0; 
 			case 5:
 			sec1();
-			return 0; 
 			case 6:
 			sec2();
-			return 0; 
 			case 7:
 			yuta();
-			return 0; 
 			case 8:
 			contador();
-			return 0; 
 			case 9:
 			competencia();
-			return 0; 
 			case 10:
 			intensidad();
-			return 0; 
 			case 11:
 			adc();
-			return 0; 
 			case 12:
-			return 0; 
 			default:
 			printf("Opcion invalida!\n");
-			return 0; 
-		}
+			}
 	}while(op=!12);
 }
