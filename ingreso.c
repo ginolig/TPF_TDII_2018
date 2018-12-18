@@ -45,7 +45,7 @@ for(i=0; i<3; i++){ //Bucle que cuenta 3 intentos de ingreso de clave
 
 }
 
-if(correcta==1) {printw("\n Usted ha ingresado correctamente"); break;}
+if(correcta==1) {printw("\n Usted ha ingresado correctamente"); return 0;}
 
 else printw("\n Vuelva a probar, restan %d intentos \n", 2-i);
 }
