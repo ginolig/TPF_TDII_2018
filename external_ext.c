@@ -34,7 +34,7 @@ int external(){
 			flag=0;
 			while(flag < 10000){ //while de 10 seg de espera para que el receptor aparezca para recibir
 
-				if (digitalRead(10)==0) break;	//leo si está en cero rts, de ser asi es que puede recibir algo
+				if (digitalRead(10)==0) return 0;	//leo si está en cero rts, de ser asi es que puede recibir algo
 			delay(1);
 			flag=flag+1;
 			}
