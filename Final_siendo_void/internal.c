@@ -23,8 +23,7 @@ void internal(int choise) {
 		printf("\n\t 8- Contador 8bit");
 		printf("\n\t 9- Competencia");
 		printf("\n\t 10- Lumen");
-		printf("\n\t 11- Seteo de velocidades mediante el uso de potenciometro");
-		printf("\n\t 12- Salir. \n\t ");
+		printf("\n\t 11- Salir. \n\t ");
 
 		if(c==0){
 			__fpurge(fp);
@@ -48,10 +47,7 @@ void internal(int choise) {
 		else if(op == 8 ) contador();
 		else if(op == 9) competencia();
 		else if(op == 10) intensidad();
-		else if(op == 11) {
-			printf("\n\t\t%d\n\n", adc());
-			delay(800);
-		}
 		
-	}while(op != 12);
+		
+	}while(op != 11);
 }
