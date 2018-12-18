@@ -4,7 +4,7 @@
 #include "funciones.h"
 
 
-void competencia(){
+int competencia(){
 	wiringPiSetupGpio() ;
 	char c;
 	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, retardo, balance, posicion=6;
@@ -36,7 +36,7 @@ void competencia(){
 
 	while(1){
 		balance = 0; //VARIABLE DE DETECCION DE DIFERENCIA DE CANTIDAD DE PULSADOS ENTRE JUGADORES
-		if (digitalRead(17) == 1 || flag == 1) break;
+		if (digitalRead(17) == 1 || flag == 1) return 0;
 		for (j = -1; j < retardo; ++j)
 		{	delay(1);
 			if(kbhit()){
@@ -63,7 +63,7 @@ void competencia(){
 					
 			system("/bin/stty cooked");
 			}
-			if (digitalRead(17) == 1 || flag == 1) { break; flag==1;}
+			if (digitalRead(17) == 1 || flag == 1) { return 0; flag==1;}
 		}
 		if (balance > 0 && posicion != 11) 
 		{
@@ -86,7 +86,7 @@ void competencia(){
 			while((c = getchar()) == '\n');
 			system("/bin/stty cooked");
 			system("clear");
-			if( c != '1' ) { flag=1; break;}
+			if( c != '1' ) { flag=1; return 0;}
 			if (c == '1'){
 				posicion = 6;
 				for (i = 0; i < 8; ++i) digitalWrite(pins_leds[i], lut[posicion - 1][i]); //posicion central
@@ -99,7 +99,7 @@ void competencia(){
 			}
 		}
 		
-		if (digitalRead(17) == 1) break;
+		if (digitalRead(17) == 1) return 0;
 		
 	}
 
