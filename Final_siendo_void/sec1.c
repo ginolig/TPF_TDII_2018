@@ -11,7 +11,7 @@ void sec1(){
     for(i=0;i<8;i++)
       pinMode(pins_leds[i], OUTPUT);
     srand(time(NULL));
-	printf("USTED ESTA HACIENDO USO DE LA FUNCION CON DELAY MAS RANDOM JAMAS VISTA\n");
+	printf("USTED ESTA PRESENCIANDO LA MAGIA NAVIDE%cA\n", 165);
 	printf("Pulse el destacado botón de la plaqueta para salir\n");
 
     while(digitalRead(17) != 1){
