@@ -12,17 +12,19 @@ void yuta(){
 	wiringPiSetupGpio() ;
 	int  k;
 	int pins_leds[]={23,24,25,12,16,20,21,26};
+	static int cnt=0, retardo2=0;
 	pinMode(17, INPUT);
 	for(k=0;k<8;k++) pinMode(pins_leds[k], OUTPUT);
-	
+
 	retardo=adc()/2;
-	
+	if(cnt==0) retardo2=retardo;
+
 	printf("USTED SE A COMUNICADO CON LA COMISARIA\n");
 	printf("Pulse el maravilloso botón de la plaqueta para salir\n");
 
 
 	while(digitalRead(17) != 1){
-		for (i = 0; i < 2; i++){		
+		for (i = 0; i < 2; i++){
 			for(k=0;k<4;k++) digitalWrite(pins_leds[k], 1);
 			delay_mio();
 			if(i==1) delay_mio();
@@ -45,7 +47,7 @@ void yuta(){
         	for (k = 7; k > 3; k--){
 			delay_mio();
 			digitalWrite(pins_leds[k], 0);
-            		
+
             	}
         }
 	delay_mio();
@@ -61,26 +63,26 @@ void yuta(){
 int delay_mio(){
 	char c;
 	int j;
-	for (j = -1; j < retardo; ++j) //bucle de retardos 1 para poder salir cuando quiera
+	for (j = -1; j < retardo2; ++j) //bucle de retardos 1 para poder salir cuando quiera
 	        {
 	            delay(2);
 		    if(i!=1) delay(3);
-	            if (digitalRead(17) == 1) { flag=1; break;} 
-	         
-		
+	            if (digitalRead(17) == 1) { flag=1; break;}
+
+
 			if(kbhit()){
-		        system("/bin/stty raw");   
+		        system("/bin/stty raw");
 				if( c = getchar() == '[')      c = getchar();
 					if( c  == 'A'){ //modo de observar si se pulso flecha abajo
-						if(retardo != 0) retardo-=10; 
-						j=-1; 
-						system("clear"); 
-						printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+						if(retardo2 != 0) retardo2-=10;
+						j=-1;
+						system("clear");
+						printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
 					else if ( c == 'B') { //flecha arriba
-						retardo+=10; 
-						j=-1; 
-						system("clear"); 
-						printf("Pulse el maravilloso botón de la plaqueta para salir\n");} 
+						retardo2+=10;
+						j=-1;
+						system("clear");
+						printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
 		        system("/bin/stty cooked");
 		}
         }
