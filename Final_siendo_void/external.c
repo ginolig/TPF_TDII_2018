@@ -14,8 +14,7 @@ int external(){
 	wiringPiSetupGpio();
 	pinMode(rts, INPUT) ;
 	pinMode(cts, OUTPUT) ;
-	int file_descriptor, rts, cts, caracteres, data_in, flag, espera;
-	char  handshaking;
+	int file_descriptor, rts, cts, caracteres, data_in, espera;
 
 	printf("Inicializando puerto...\n");
 
