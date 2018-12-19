@@ -8,7 +8,7 @@ void internal(int choise) {
 	int op, c=0;
 	FILE *fp = fopen("./myfile", "a");
 	c = choise;
-	wiringPiSetupSys();
+	wiringPiSetupGpio() ;
 	do{
 		system("clear");
 
