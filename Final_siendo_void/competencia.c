@@ -26,7 +26,7 @@ void competencia(){
 
 	pinMode(17, INPUT);
 
-	retardo = adc() * 2;
+	retardo = ((adc() * 2) / 10) * 10;	//Para que retardo sea multiplo de 10
 	if(cnt==0) retardo2=retardo;
 
 	printf("USTED ESTA HACIENDO USO DE LA COMPETENCIA ROMPEAMISTADES\n");
@@ -43,7 +43,7 @@ void competencia(){
 		{	delay(1);
 			if(kbhit()){
 		        system("/bin/stty raw");
-				if( c = getchar() == '[') c = getchar();
+				if( (c = getchar()) == '[') c = getchar();
 				if( c  == 'A'){ //modo de observar si se pulso flecha abajo
 					if(retardo2 != 0) retardo2-=100;
 					j=-1;
@@ -65,7 +65,7 @@ void competencia(){
 
 			system("/bin/stty cooked");
 			}
-			if (digitalRead(17) == 1 || flag == 1) { break; flag==1;}
+			if (digitalRead(17) == 1 || flag == 1) { flag=1; break;}
 		}
 		if (balance > 0 && posicion != 11)
 		{
