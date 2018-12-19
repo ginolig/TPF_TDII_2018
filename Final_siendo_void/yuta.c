@@ -6,13 +6,12 @@
 int delay_mio();
 
 int i, flag, retardo;
-
+static int cnt=0, retardo2=0;
 
 void yuta(){
 	wiringPiSetupGpio() ;
 	int  k;
 	int pins_leds[]={23,24,25,12,16,20,21,26};
-	static int cnt=0, retardo2=0;
 	pinMode(17, INPUT);
 	for(k=0;k<8;k++) pinMode(pins_leds[k], OUTPUT);
 
