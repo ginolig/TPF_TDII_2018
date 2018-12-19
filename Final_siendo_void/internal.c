@@ -1,12 +1,10 @@
 #include <stdio.h>
-#include <stdio_ext.h>
 #include <stdlib.h>
 #include "funciones.h"
 #include <wiringPi.h>
 
 void internal(int choise) {
 	int op, c=0;
-	FILE *fp = fopen("./myfile", "a");
 	c = choise;
 	wiringPiSetupGpio() ;
 	do{
@@ -26,7 +24,6 @@ void internal(int choise) {
 		printf("\n\t 11- Salir. \n\t ");
 
 		if(c==0){
-			__fpurge(fp);
  
 			scanf("%d", &op);
 
