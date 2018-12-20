@@ -9,13 +9,13 @@ int rts=10;
 
 char   * uart  =  "/dev/ttyS0";
 
-int external(){
+int main(){
 
 	wiringPiSetupGpio ();
 	pinMode(rts, INPUT) ;
 	pinMode(cts, OUTPUT) ;
-	int file_descriptor, rts, cts, flag, espera, data_out;
-	char  handshaking;
+	int file_descriptor;
+	char   data_out;
 
 	printf("Inicializando puerto...\n");
 
@@ -28,24 +28,16 @@ int external(){
 		do{
 			printf("\t\t<<< CENTRO DE CONTROL REMOTO >>>\n\n");
 			printf("Escoja una opcion: \n");
-			scanf("%d", &data_out);
-			serialPrintf (file_descriptor, data_out);
-			digitalWrite( cts, 0);
-			flag=0;
-			while(flag < 10000){ //while de 10 seg de espera para que el receptor aparezca para recibir
+			serialFlush(file_descriptor);
 
-				if (digitalRead(10)==0) break;	//leo si está en cero rts, de ser asi es que puede recibir algo
-			delay(1);
-			flag=flag+1;
-			}
-			if(flag==10000){
-				serialFlush(file_descriptor);
-				printf("No se ha podido establecer la conexion!\nSe ha vaciado el buffer de datos.\n");
-			}
-		}while(data_out != 11);
+			data_out = getchar();
+			serialPutchar(file_descriptor, data_out);
 
-	serialClose(file_descriptor);
-	digitalWrite( cts, 1);
+		}while(data_out != 12);
+
 	serialFlush(file_descriptor);
+	serialClose(file_descriptor);
+
+
 return 0;
 }
