@@ -3,11 +3,11 @@
 #include <wiringPi.h>
 #include "funciones.h"
 
-void contador(){
+void contador(int ch){
 
   wiringPiSetupGpio() ;
   char c;
-  int i=0, j=0, retardo, flag=0;
+  int i=0, j=0, retardo, flag=0, ch;
   static int cnt=0, retardo2=0;
   int lut[256][8]={
       {0,0,0,0,0,0,0,0},
@@ -291,21 +291,35 @@ void contador(){
 	            if (digitalRead(17) == 1) { flag=1; break;}
 
 
-		if(kbhit()){
-	        system("/bin/stty raw");
-			if( c = getchar() == '[')      c = getchar();
-				if( c  == 'A'){ //modo de observar si se pulso flecha abajo
-					if(retardo2 != 0) retardo2-=10;
-					j=-1;
-					system("clear");
-					printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-				else if ( c == 'B') { //flecha arriba
-					retardo2+=10;
-					j=-1;
-					system("clear");
-					printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-	        system("/bin/stty cooked");
-			}
+              if(ch==0){
+              if(kbhit()){
+                    system("/bin/stty raw");
+                if( c = getchar() == '[')      c = getchar();
+                  if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+                    if(retardo2 != 0) retardo2-=10;
+                    j=-1;
+                    system("clear");
+                    printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+                  else if ( c == 'B') { //flecha arriba
+                    retardo2+=10;
+                    j=-1;
+                    system("clear");
+                    printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+                    system("/bin/stty cooked");
+                }
+              }else if(ch==1){
+                c=external();
+                if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+                  if(retardo2 != 0) retardo2-=10;
+                  j=-1;
+                  system("clear");
+                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+                else if ( c == 'B') { //flecha arriba
+                  retardo2+=10;
+                  j=-1;
+                  system("clear");
+                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+              }
 		}
 	   if (digitalRead(17) == 1) break;
 	   }

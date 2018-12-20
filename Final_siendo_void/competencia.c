@@ -4,7 +4,7 @@
 #include "funciones.h"
 
 
-void competencia(){
+void competencia(int ch){
 	wiringPiSetupGpio() ;
 	char c;
 	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, retardo, balance, posicion=6;
@@ -41,30 +41,53 @@ void competencia(){
 		if (digitalRead(17) == 1 || flag == 1) break;
 		for (j = -1; j < retardo2; ++j)
 		{	delay(1);
-			if(kbhit()){
-		        system("/bin/stty raw");
-				if( (c = getchar()) == '[') c = getchar();
-				if( c  == 'A'){ //modo de observar si se pulso flecha abajo
-					if(retardo2 != 0) retardo2-=100;
-					j=-1;
-					system("clear");
-					printf("Pulse el botón destacado de la plaqueta para salir\n");}
-				else if ( c == 'B') { //flecha arriba
-					retardo2+=100;
-					j=-1;
-					system("clear");
-					printf("Pulse el botón destacado de la plaqueta para salir\n");}
-				else if ( c == 'C'){ //flecha derecha
-					balance += 1;
-					system("clear");
-					printf("Pulse el botón destacado de la plaqueta para salir\n");}
-				else if ( c == 'D'){ //flecha izquierda
-					balance -= 1;
-					system("clear");
-					printf("Pulse el botón destacado de la plaqueta para salir\n");}
+			if(ch==0){
+				if(kbhit()){
+							system("/bin/stty raw");
+					if( (c = getchar()) == '[') c = getchar();
+					if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+						if(retardo2 != 0) retardo2-=100;
+						j=-1;
+						system("clear");
+						printf("Pulse el botón destacado de la plaqueta para salir\n");}
+					else if ( c == 'B') { //flecha arriba
+						retardo2+=100;
+						j=-1;
+						system("clear");
+						printf("Pulse el botón destacado de la plaqueta para salir\n");}
+					else if ( c == 'C'){ //flecha derecha
+						balance += 1;
+						system("clear");
+						printf("Pulse el botón destacado de la plaqueta para salir\n");}
+					else if ( c == 'D'){ //flecha izquierda
+						balance -= 1;
+						system("clear");
+						printf("Pulse el botón destacado de la plaqueta para salir\n");}
 
-			system("/bin/stty cooked");
-			}
+				system("/bin/stty cooked");
+				}
+		}else if(ch==1){
+			c=external();
+			if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+				if(retardo2 != 0) retardo2-=100;
+				j=-1;
+				system("clear");
+				printf("Pulse el botón destacado de la plaqueta para salir\n");}
+			else if ( c == 'B') { //flecha arriba
+				retardo2+=100;
+				j=-1;
+				system("clear");
+				printf("Pulse el botón destacado de la plaqueta para salir\n");}
+			else if ( c == 'C'){ //flecha derecha
+				balance += 1;
+				system("clear");
+				printf("Pulse el botón destacado de la plaqueta para salir\n");}
+			else if ( c == 'D'){ //flecha izquierda
+				balance -= 1;
+				system("clear");
+				printf("Pulse el botón destacado de la plaqueta para salir\n");}
+		}
+
 			if (digitalRead(17) == 1 || flag == 1) { flag=1; break;}
 		}
 		if (balance > 0 && posicion != 11)

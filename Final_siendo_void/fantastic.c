@@ -3,7 +3,7 @@
 #include <wiringPi.h>
 #include "funciones.h"
 
-void fantastic(){
+void fantastic(int ch){
 
     wiringPiSetupGpio() ;
 
@@ -36,21 +36,35 @@ void fantastic(){
             if (digitalRead(17) == 1) { flag=1; break;}
 
 
-	if(kbhit()){
-        system("/bin/stty raw");
-		if( c = getchar() == '[')      c = getchar();
-			if( c  == 'A'){ //modo de observar si se pulso flecha abajo
-				if(retardo2 != 0) retardo2-=10;
-				j=-1;
-				system("clear");
-				printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-			else if ( c == 'B') { //flecha arriba
-				retardo2+=10;
-				j=-1;
-				system("clear");
-				printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-        system("/bin/stty cooked");
-		}
+            if(ch==0){
+            if(kbhit()){
+                  system("/bin/stty raw");
+              if( c = getchar() == '[')      c = getchar();
+                if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+                  if(retardo2 != 0) retardo2-=10;
+                  j=-1;
+                  system("clear");
+                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+                else if ( c == 'B') { //flecha arriba
+                  retardo2+=10;
+                  j=-1;
+                  system("clear");
+                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+                  system("/bin/stty cooked");
+              }
+            }else if(ch==1){
+              c=external();
+              if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+                if(retardo2 != 0) retardo2-=10;
+                j=-1;
+                system("clear");
+                printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+              else if ( c == 'B') { //flecha arriba
+                retardo2+=10;
+                j=-1;
+                system("clear");
+                printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+            }
 	}
 
 

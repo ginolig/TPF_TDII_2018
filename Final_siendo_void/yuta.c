@@ -3,12 +3,12 @@
 #include <wiringPi.h>
 #include "funciones.h"
 
-int delay_mio();
+int delay_mio(int ch);
 
 int i, flag, retardo;
 static int cnt=0, retardo2=0;
 
-void yuta(){
+void yuta(int ch){
 	wiringPiSetupGpio() ;
 	int  k;
 	int pins_leds[]={23,24,25,12,16,20,21,26};
@@ -25,32 +25,32 @@ void yuta(){
 	while(digitalRead(17) != 1){
 		for (i = 0; i < 2; i++){
 			for(k=0;k<4;k++) digitalWrite(pins_leds[k], 1);
-			delay_mio();
-			if(i==1) delay_mio();
+			delay_mio(ch);
+			if(i==1) delay_mio(ch);
 			for(k=0;k<4;k++) digitalWrite(pins_leds[k], 0);
 			for(k=4;k<8;k++) digitalWrite(pins_leds[k], 1);
-        		delay_mio();
-			if(i==1) delay_mio();
+        		delay_mio(ch);
+			if(i==1) delay_mio(ch);
 			for(k=4;k<8;k++) digitalWrite(pins_leds[k], 0);
 
         	if(i==1){
 			for(k=0;k<4;k++) digitalWrite(pins_leds[k], 1);
-			delay_mio();
+			delay_mio(ch);
 			for (k = 0; k < 4; k++){
-		        	delay_mio();
+		        	delay_mio(ch);
 		        	digitalWrite(pins_leds[k], 0);
 		        }
 
 		for(k=4;k<8;k++) digitalWrite(pins_leds[k], 1);
-		delay_mio();
+		delay_mio(ch);
         	for (k = 7; k > 3; k--){
-			delay_mio();
+			delay_mio(ch);
 			digitalWrite(pins_leds[k], 0);
 
             	}
         }
-	delay_mio();
-	if(i==1) delay_mio();
+	delay_mio(ch);
+	if(i==1) delay_mio(ch);
         if (digitalRead(17) == 1 || flag == 1) break;
       }
     }
@@ -59,7 +59,7 @@ void yuta(){
     system("clear");
 }
 
-int delay_mio(){
+int delay_mio(int ch){
 	char c;
 	int j;
 	for (j = -1; j < retardo2; ++j) //bucle de retardos 1 para poder salir cuando quiera
@@ -69,21 +69,35 @@ int delay_mio(){
 	            if (digitalRead(17) == 1) { flag=1; break;}
 
 
-			if(kbhit()){
-		        system("/bin/stty raw");
-				if( c = getchar() == '[')      c = getchar();
-					if( c  == 'A'){ //modo de observar si se pulso flecha abajo
-						if(retardo2 != 0) retardo2-=10;
-						j=-1;
-						system("clear");
-						printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-					else if ( c == 'B') { //flecha arriba
-						retardo2+=10;
-						j=-1;
-						system("clear");
-						printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-		        system("/bin/stty cooked");
-		}
+							if(ch==0){
+							if(kbhit()){
+										system("/bin/stty raw");
+								if( c = getchar() == '[')      c = getchar();
+									if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+										if(retardo2 != 0) retardo2-=10;
+										j=-1;
+										system("clear");
+										printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+									else if ( c == 'B') { //flecha arriba
+										retardo2+=10;
+										j=-1;
+										system("clear");
+										printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+										system("/bin/stty cooked");
+								}
+							}else if(ch==1){
+								c=external();
+								if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+									if(retardo2 != 0) retardo2-=10;
+									j=-1;
+									system("clear");
+									printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+								else if ( c == 'B') { //flecha arriba
+									retardo2+=10;
+									j=-1;
+									system("clear");
+									printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+							}
         }
 
 }

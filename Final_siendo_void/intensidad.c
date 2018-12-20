@@ -4,7 +4,7 @@
 #include "funciones.h"
 
 
-void intensidad(){
+void intensidad(int ch){
 	wiringPiSetupGpio() ;
 	char c;
 	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, balance=100, posicion=6;
@@ -30,9 +30,22 @@ void intensidad(){
 
 			delayMicroseconds(2);
 
-		if(kbhit()){
-        system("/bin/stty raw");
-		if( c = getchar() == '[')      c = getchar();
+			if(ch==0){
+					if(kbhit()){
+			        system("/bin/stty raw");
+					if( c = getchar() == '[')      c = getchar();
+						if( c  == 'A'){ //modo de observar si se pulso flecha abajo
+							balance+=1;
+							system("clear");
+							printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+						else if ( c == 'B') { //flecha arriba
+							balance-=1;
+							system("clear");
+							printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+			        system("/bin/stty cooked");
+					}
+		}else if(ch==1){
+			c=external();
 			if( c  == 'A'){ //modo de observar si se pulso flecha abajo
 				balance+=1;
 				system("clear");
@@ -41,7 +54,6 @@ void intensidad(){
 				balance-=1;
 				system("clear");
 				printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-        system("/bin/stty cooked");
 		}
 
 		}

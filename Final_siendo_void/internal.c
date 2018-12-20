@@ -4,7 +4,8 @@
 #include <wiringPi.h>
 
 void internal(int choise) {
-	int op, c=0;
+	int c=0;
+	char op;
 	c = choise;
 	wiringPiSetupGpio() ;
 	do{
@@ -20,31 +21,30 @@ void internal(int choise) {
 		printf("\n\t 7- Eins Zwei Polizei");
 		printf("\n\t 8- Contador 8bit");
 		printf("\n\t 9- Competencia");
-		printf("\n\t 10- Lumen");
-		printf("\n\t 11- Salir. \n\t ");
+		printf("\n\t a- Lumen");
+		printf("\n\t b- Salir. \n\t ");
 
 		if(c==0){
- 
-			scanf("%d", &op);
 
+			scanf("%c", &op);
 			system("clear");
 		}
 		else if(c==1)
 			op=external();
 
-	
 
-		if(op == 1) fantastic();
-		else if(op == 2) carrera();
-		else if(op == 3) apilada();
-		else if(op == 4) choque();
+
+		if(op == 1) fantastic(c);
+		else if(op == 2) carrera(c);
+		else if(op == 3) apilada(c);
+		else if(op == 4) choque(c);
 		else if(op == 5) sec1();
 		else if(op == 6) sec2();
-		else if(op == 7) yuta();
-		else if(op == 8 ) contador();
-		else if(op == 9) competencia();
-		else if(op == 10) intensidad();
-		
-		
-	}while(op != 11);
+		else if(op == 7) yuta(c);
+		else if(op == 8 ) contador(c);
+		else if(op == 9) competencia(c);
+		else if(op == 'a') intensidad(c);
+
+
+	}while(op != 'b');
 }
