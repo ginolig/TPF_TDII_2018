@@ -7,7 +7,7 @@ void contador(int ch){
 
   wiringPiSetupGpio() ;
   char c;
-  int i=0, j=0, retardo, flag=0, ch;
+  int i=0, j=0, retardo, flag=0;
   static int cnt=0, retardo2=0;
   int lut[256][8]={
       {0,0,0,0,0,0,0,0},
