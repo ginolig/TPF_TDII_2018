@@ -30,19 +30,19 @@ void internal(int choise) {
 			system("clear");
 		}
 		else if(c==1)
-			op=external();
+			printf("opcion: %c", op=external());
 
 
 
-		if(op == 1) fantastic(c);
-		else if(op == 2) carrera(c);
-		else if(op == 3) apilada(c);
-		else if(op == 4) choque(c);
-		else if(op == 5) sec1();
-		else if(op == 6) sec2();
-		else if(op == 7) yuta(c);
-		else if(op == 8 ) contador(c);
-		else if(op == 9) competencia(c);
+		if(op == '1') fantastic(c);
+		else if(op == '2') carrera(c);
+		else if(op == '3') apilada(c);
+		else if(op == '4') choque(c);
+		else if(op == '5') sec1();
+		else if(op == '6') sec2();
+		else if(op == '7') yuta(c);
+		else if(op == '8') contador(c);
+		else if(op == '9') competencia(c);
 		else if(op == 'a') intensidad(c);
 
 

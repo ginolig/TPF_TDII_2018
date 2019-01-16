@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
+#include <wiringSerial.h>
 #include "funciones.h"
 
 void carrera(int ch){
 
   wiringPiSetupGpio() ;
-  char c;
-  int i=0, j=0, retardo, flag=0;
+  char c, data_in;
+  /*char   * uart  =  "/dev/ttyS0";   Descomentar al terminar de probar*/
+  int i=0, j=0, retardo, flag=0, file_descriptor;
   static int cnt=0, retardo2=0;
   int lut[16][8]={
       {1,0,0,0,0,0,0,0},
@@ -32,6 +34,9 @@ void carrera(int ch){
   retardo = adc();
   if(cnt==0) retardo2=retardo;
 
+  /*file_descriptor = serialOpen(uart, 9600);   Descomentar al terminar de probar*/
+
+  system("clear");
   printf("USTED ESTA HACIENDO USO DE LA MAGIA CARRERISTICA\n");
   printf("Pulse el maravilloso botón de la plaqueta para salir\n");
 
@@ -68,20 +73,25 @@ void carrera(int ch){
                     system("/bin/stty cooked");
                 }
               }else if(ch==1){
-                c=external();
-                if( c  == 'A'){ //modo de observar si se pulso flecha abajo
-                  if(retardo2 != 0) retardo2-=10;
-                  j=-1;
-                  system("clear");
-                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-                else if ( c == 'B') { //flecha arriba
-                  retardo2+=10;
-                  j=-1;
-                  system("clear");
-                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-              }
+                data_in  = serialGetchar(file_descriptor);
+    						serialFlush(file_descriptor);
+    		              if(data_in  == 'A'){ //modo de observar si se pulso flecha abajo
+    		                  if(retardo2 != 0) retardo2-=10;
+    		                  j=-1;
+    		                  system("clear");
+    		                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+    		                else if ( data_in == 'B') { //flecha arriba
+    		                  retardo2+=10;
+    		                  j=-1;
+    		                  system("clear");
+    		                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+    		            }
 		}
-	   if (digitalRead(17) == 1) break;
+    if (digitalRead(17) == 1 || flag == 1){
+      serialFlush(file_descriptor);
+      serialClose(file_descriptor);
+      break;
+    }
 	   }
 
     }

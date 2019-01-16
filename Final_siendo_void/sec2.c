@@ -12,7 +12,7 @@ int sec2(){
     int stat[]={0,0,0,0,0,0,0,0};
 
     printf("USTED ESTA PRESENCIANDO LOS MISTERIOS DE LA ENTROPIA\n");
-    printf("(nunca me crean cuando digo la mas random que puede haber muajaja \n");
+    printf("(nunca me crean cuando digo la mas random que puede haber muajaja) \n");
     printf("Pulse el maravilloso botón de la plaqueta para salir\n");
 
     pinMode(17, INPUT);

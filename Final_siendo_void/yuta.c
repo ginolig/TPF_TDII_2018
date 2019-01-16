@@ -1,15 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wiringPi.h>
+#include <wiringSerial.h>
 #include "funciones.h"
 
 int delay_mio(int ch);
 
-int i, flag, retardo;
+int i, flag, retardo, file_descriptor;
 static int cnt=0, retardo2=0;
+char data_in;
 
 void yuta(int ch){
 	wiringPiSetupGpio() ;
+	/*char   * uart  =  "/dev/ttyS0";   Descomentar al terminar de probar*/
 	int  k;
 	int pins_leds[]={23,24,25,12,16,20,21,26};
 	pinMode(17, INPUT);
@@ -17,6 +20,8 @@ void yuta(int ch){
 
 	retardo=adc()/2;
 	if(cnt==0) retardo2=retardo;
+
+	/*file_descriptor = serialOpen(uart, 9600);   Descomentar al terminar de probar*/
 
 	printf("USTED SE A COMUNICADO CON LA COMISARIA\n");
 	printf("Pulse el maravilloso botón de la plaqueta para salir\n");
@@ -51,7 +56,11 @@ void yuta(int ch){
         }
 	delay_mio(ch);
 	if(i==1) delay_mio(ch);
-        if (digitalRead(17) == 1 || flag == 1) break;
+	if (digitalRead(17) == 1 || flag == 1){
+		serialFlush(file_descriptor);
+		serialClose(file_descriptor);
+		break;
+	}
       }
     }
 
@@ -86,18 +95,19 @@ int delay_mio(int ch){
 										system("/bin/stty cooked");
 								}
 							}else if(ch==1){
-								c=external();
-								if( c  == 'A'){ //modo de observar si se pulso flecha abajo
-									if(retardo2 != 0) retardo2-=10;
-									j=-1;
-									system("clear");
-									printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-								else if ( c == 'B') { //flecha arriba
-									retardo2+=10;
-									j=-1;
-									system("clear");
-									printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-							}
+								data_in  = serialGetchar(file_descriptor);
+								serialFlush(file_descriptor);
+				              if(data_in  == 'A'){ //modo de observar si se pulso flecha abajo
+				                  if(retardo2 != 0) retardo2-=10;
+				                  j=-1;
+				                  system("clear");
+				                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+				                else if ( data_in == 'B') { //flecha arriba
+				                  retardo2+=10;
+				                  j=-1;
+				                  system("clear");
+				                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+				            }
         }
 
 }

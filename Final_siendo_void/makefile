@@ -13,5 +13,8 @@ CFLAGS = -lwiringPi -pthread -lcrypt -lm -lrt -lncurses
 final: $(OBJECTS) funciones.h
 	$(CC) $(CFLAGS) $(OBJECTS) -o final
 
+ext: external_ext.c funciones.h
+	$(CC) $(CFLAGS) kbhit.o external_ext.c -o ext
+
 clean:
 	rm *.o
