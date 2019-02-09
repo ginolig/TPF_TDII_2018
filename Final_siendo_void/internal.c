@@ -11,12 +11,12 @@ void internal(int choise) {
 	do{
 		system("clear");
 
-		printf("Ingrese el modo que desea iniciar:");
+		printf("Seleccione la secuencia que desea iniciar:");
 		printf("\n\t 1- El auto fantastico ");
 		printf("\n\t 2- La carrera");
 		printf("\n\t 3- La apilada");
 		printf("\n\t 4- El choque");
-		printf("\n\t 5- Personalizado 1");
+		printf("\n\t 5- La luce del arbolito");
 		printf("\n\t 6- Entropia");
 		printf("\n\t 7- Eins Zwei Polizei");
 		printf("\n\t 8- Contador 8bit");
@@ -29,8 +29,11 @@ void internal(int choise) {
 			scanf("%c", &op);
 			system("clear");
 		}
-		else if(c==1)
-			printf("opcion: %c", op=external());
+		else if(c==1){
+			op=external();
+			printf("\nopcion: %c", op);
+			fflush(stdout);
+		}
 
 
 

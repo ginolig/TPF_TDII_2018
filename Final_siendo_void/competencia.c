@@ -8,7 +8,7 @@
 void competencia(int ch){
 	wiringPiSetupGpio() ;
 	char c, data_in;
-	/*char   * uart  =  "/dev/ttyS0";   Descomentar al terminar de probar*/
+	char   * uart  =  "/dev/serial0";
 	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, retardo, balance, posicion=6, file_descriptor;
 	static int cnt=0, retardo2=0;
 	int lut[11][8]={
@@ -31,7 +31,7 @@ void competencia(int ch){
 	retardo = ((adc() * 2) / 10) * 10;	//Para que retardo sea multiplo de 10
 	if(cnt==0) retardo2=retardo;
 
-	/*file_descriptor = serialOpen(uart, 9600);   Descomentar al terminar de probar*/
+	file_descriptor = serialOpen(uart, 9600);
 
 	printf("USTED ESTA HACIENDO USO DE LA COMPETENCIA ROMPEAMISTADES\n");
 	printf("Debe llevarse las luces para su costado apretando repetidamente las flechas\n");
@@ -75,27 +75,29 @@ void competencia(int ch){
 				system("/bin/stty cooked");
 				}
 		}else if(ch==1){
+			if(serialDataAvail(file_descriptor) > 0){
+			delay(10);
 			data_in  = serialGetchar(file_descriptor);
-			serialFlush(file_descriptor);
-						if(data_in  == 'A'){ //modo de observar si se pulso flecha abajo
-								if(retardo2 != 0) retardo2-=100;
-								j=-1;
-								system("clear");
-								printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-							else if ( data_in == 'B') { //flecha arriba
-								retardo2+=100;
-								j=-1;
-								system("clear");
-								printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-							else if ( data_in == 'C'){ //flecha derecha
-								balance += 1;
-								system("clear");
-								printf("Pulse el botón destacado de la plaqueta para salir\n");}
-							else if ( data_in == 'D'){ //flecha izquierda
-								balance -= 1;
-								system("clear");
-								printf("Pulse el botón destacado de la plaqueta para salir\n");}
-		}
+			if(data_in  == 'A'){ //modo de observar si se pulso flecha abajo
+					if(retardo2 != 0) retardo2-=100;
+					j=-1;
+					system("clear");
+					printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+				else if ( data_in == 'B') { //flecha arriba
+					retardo2+=100;
+					j=-1;
+					system("clear");
+					printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+				else if ( data_in == 'C'){ //flecha derecha
+					balance += 1;
+					system("clear");
+					printf("Pulse el botón destacado de la plaqueta para salir\n");}
+				else if ( data_in == 'D'){ //flecha izquierda
+					balance -= 1;
+					system("clear");
+					printf("Pulse el botón destacado de la plaqueta para salir\n");}
+				}
+			}
 
 			if (digitalRead(17) == 1 || flag == 1) { flag=1; break;}
 		}
@@ -132,7 +134,7 @@ void competencia(int ch){
 
 			}
 		}
-
+if (digitalRead(17) == 1) break;
 		if (digitalRead(17) == 1 || flag == 1){
 			serialFlush(file_descriptor);
 			serialClose(file_descriptor);
@@ -143,5 +145,4 @@ void competencia(int ch){
 
 
 	for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 0);
-	system("clear");
 }

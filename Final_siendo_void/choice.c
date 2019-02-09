@@ -15,7 +15,6 @@ while(1){
 	else if (a == '\n'); //en el buffer queda un enter que ensuciaba la leida
 	else printf("\n El numero ingresado es invalido, intente nuevamente\n");
 
-	
-}
+	}
 
 }

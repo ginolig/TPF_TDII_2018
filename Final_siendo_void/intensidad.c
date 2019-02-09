@@ -8,13 +8,13 @@
 void intensidad(int ch){
 	wiringPiSetupGpio() ;
 	char c, data_in;
-	/*char   * uart  =  "/dev/ttyS0";   Descomentar al terminar de probar*/
+	char   * uart  =  "/dev/serial0";
 	int pins_leds[]={23,24,25,12,16,20,21,26}, i, j, flag, balance=100, posicion=6, file_descriptor;
 
 	pinMode(17, INPUT);
 	for(i=0;i<8;i++) pinMode(pins_leds[i], OUTPUT);	//declaro pines comno salidas
 
-	/*file_descriptor = serialOpen(uart, 9600);   Descomentar al terminar de probar*/
+	file_descriptor = serialOpen(uart, 9600);
 
 	system("clear");
 	printf("CONTEMPLE UNA DISTRIBUCION GAUSSIANA EN SU MAXIMO ESPLENDOR!\n");
@@ -57,17 +57,19 @@ void intensidad(int ch){
 			        system("/bin/stty cooked");
 					}
 		}else if(ch==1){
+			if(serialDataAvail(file_descriptor) > 0){
+			delay(10);
 			data_in  = serialGetchar(file_descriptor);
-			serialFlush(file_descriptor);
-						if(data_in  == 'A'){ //modo de observar si se pulso flecha abajo
-								balance+=1;
-								system("clear");
-								printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-							else if ( data_in == 'B') { //flecha arriba
-								balance-=1;
-								system("clear");
-								printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-					}
+			if(data_in  == 'A'){ //modo de observar si se pulso flecha abajo
+					balance+=1;
+					system("clear");
+					printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+				else if ( data_in == 'B') { //flecha arriba
+					balance-=1;
+					system("clear");
+					printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+			}
+		}
 
 		}
 	}

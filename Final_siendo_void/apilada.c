@@ -8,7 +8,7 @@ void apilada(int ch){
 
 	wiringPiSetupGpio();
 	char c, data_in;
-	/*char   * uart  =  "/dev/ttyS0";   Descomentar al terminar de probar*/
+	char   * uart  =  "/dev/serial0";
 	int  retardo, j, file_descriptor;
 	static int cnt=0, retardo2=0;
 	int i=0, k, flag=0, mx=8;
@@ -19,7 +19,7 @@ void apilada(int ch){
 		retardo = adc() ; //llamo al adc para ver su valo, si falla la comunicacion 125
 		if(cnt==0) retardo2=retardo;
 
-		/*file_descriptor = serialOpen(uart, 9600);   Descomentar al terminar de probar*/
+		file_descriptor = serialOpen(uart, 9600);
 
         system("clear");
 	printf("USTED ESTA HACIENDO USO DE LA INIGUALABLE APILADA\n");
@@ -53,8 +53,9 @@ void apilada(int ch){
 				        system("/bin/stty cooked");
 						}
 					}else if(ch==1){
+						if(serialDataAvail(file_descriptor) > 0){
+						delay(10);
 						data_in  = serialGetchar(file_descriptor);
-						serialFlush(file_descriptor);
 		              if(data_in  == 'A'){ //modo de observar si se pulso flecha abajo
 		                  if(retardo2 != 0) retardo2-=10;
 		                  j=-1;
@@ -66,12 +67,13 @@ void apilada(int ch){
 		                  system("clear");
 		                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
 		            }
+				}
 					}
-
 				        digitalWrite(pins_leds[k], 0);
 	        	}
-
+		
 		mx=mx-1;
+		if (digitalRead(17) == 1) break;
 		digitalWrite(pins_leds[mx], 1);
 
 
@@ -86,6 +88,7 @@ void apilada(int ch){
 	i=0;
 	k=0;
 	mx=8;
+	if (digitalRead(17) == 1) break;
 	if (digitalRead(17) == 1 || flag == 1){
 		serialFlush(file_descriptor);
 		serialClose(file_descriptor);

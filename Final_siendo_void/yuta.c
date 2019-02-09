@@ -12,7 +12,7 @@ char data_in;
 
 void yuta(int ch){
 	wiringPiSetupGpio() ;
-	/*char   * uart  =  "/dev/ttyS0";   Descomentar al terminar de probar*/
+	char   * uart  =  "/dev/serial0";
 	int  k;
 	int pins_leds[]={23,24,25,12,16,20,21,26};
 	pinMode(17, INPUT);
@@ -21,7 +21,7 @@ void yuta(int ch){
 	retardo=adc()/2;
 	if(cnt==0) retardo2=retardo;
 
-	/*file_descriptor = serialOpen(uart, 9600);   Descomentar al terminar de probar*/
+	file_descriptor = serialOpen(uart, 9600);
 
 	printf("USTED SE A COMUNICADO CON LA COMISARIA\n");
 	printf("Pulse el maravilloso botón de la plaqueta para salir\n");
@@ -51,9 +51,11 @@ void yuta(int ch){
         	for (k = 7; k > 3; k--){
 			delay_mio(ch);
 			digitalWrite(pins_leds[k], 0);
+			if (digitalRead(17) == 1) break;
 
             	}
         }
+        if (digitalRead(17) == 1) break;
 	delay_mio(ch);
 	if(i==1) delay_mio(ch);
 	if (digitalRead(17) == 1 || flag == 1){
@@ -62,6 +64,7 @@ void yuta(int ch){
 		break;
 	}
       }
+      if (digitalRead(17) == 1) break;
     }
 
     for(i=0;i<8;i++)  digitalWrite(pins_leds[i], 0);
@@ -95,8 +98,9 @@ int delay_mio(int ch){
 										system("/bin/stty cooked");
 								}
 							}else if(ch==1){
+								if(serialDataAvail(file_descriptor) > 0){
+								delay(10);
 								data_in  = serialGetchar(file_descriptor);
-								serialFlush(file_descriptor);
 				              if(data_in  == 'A'){ //modo de observar si se pulso flecha abajo
 				                  if(retardo2 != 0) retardo2-=10;
 				                  j=-1;
@@ -108,6 +112,8 @@ int delay_mio(int ch){
 				                  system("clear");
 				                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
 				            }
+						}
+				            if (digitalRead(17) == 1) break;
         }
 
 }

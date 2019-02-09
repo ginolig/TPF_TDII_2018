@@ -19,7 +19,7 @@ void sec1(){
         digitalWrite(pins_leds[i], estado[0][i]);
         if (digitalRead(17) == 1) break;
       }
-      for (int i = 0; i < (rand()%1000)+1; ++i){ /*Genera numero aleatorio entre 1 y 1000*/
+      for (int i = 0; i < (rand()%10000)+100; ++i){ /*Genera numero aleatorio entre 100 y 10000*/
       	delay(1);
       	if (digitalRead(17) == 1) break;
       	}

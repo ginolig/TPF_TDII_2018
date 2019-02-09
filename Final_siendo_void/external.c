@@ -2,56 +2,36 @@
 #include <stdlib.h>
 #include <wiringPi.h>
 #include <wiringSerial.h>
-#include <curses.h>
 
-int retorno(char data);
-
-int cts=9;
-int rts=10;
-
-char   * uart  =  "/dev/ttyS0";
+char   * uart  =  "/dev/serial0";
 
 char external(){
 
-	wiringPiSetupGpio();
-	pinMode(rts, INPUT) ;
-	pinMode(cts, OUTPUT) ;
-	int file_descriptor, salir=0, caracteres, dat;
+	wiringPiSetup();
+	int file_descriptor, salir=0;
 	char data_in;
 
 	printf("Inicializando puerto...\n");
+	fflush(stdout);
 
-	file_descriptor = serialOpen(uart, 9600);
 
-	if (file_descriptor == -1) {
+	if ((file_descriptor = serialOpen(uart, 9600)) < 0) {
 		printf("El puerto no pudo abrirse\n");
 		return 1;
 	}
-
+		
 		while(salir != 1){ //recibo datos
-		while(1){
-			//caracteres = serialDataAvail(file_descriptor); //me fijo cuantos caracteres hay dosponibles para enviar
-			if(serialDataAvail(file_descriptor)){
-				//printf("ss%dss", caracteres);
+			serialFlush(file_descriptor);
+			delay(500);
+			if(serialDataAvail(file_descriptor) > 0){
 				data_in  = serialGetchar(file_descriptor); //tomo el caracter y lo muestro en pantalla
+				salir=1;
 				return data_in;
-				//printf("%c", data_in);
-				serialFlush(file_descriptor);
-				}
+			}else{
+				printf("error");
+				break;
 			}
-		}
-
-	serialFlush(file_descriptor);
 	serialClose(file_descriptor);
-	digitalWrite( cts, 1);
-
+}
 return 0;
 }
-
-int retorno(char data){
-	if(data == 1) return 1;
-	if(data == 2) return 2;
-	if(data == 3) return 3;
-	if(data == 4) return 4;
-return 0;
-	}

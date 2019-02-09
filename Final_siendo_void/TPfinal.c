@@ -13,6 +13,5 @@ if(state==1) {
 	 	c=0;
 	 else if (place==1)
 	 	c=1;
-	}
-	internal(c);
+	internal(c);}
 }

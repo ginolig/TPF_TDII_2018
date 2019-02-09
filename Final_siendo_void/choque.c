@@ -10,13 +10,13 @@ void choque(int ch){
     int i=0, retardo, flag, j, file_descriptor;
     static int cnt=0, retardo2=0;
     char c, data_in;
-    /*char   * uart  =  "/dev/ttyS0";   Descomentar al terminar de probar*/
+    char   * uart  =  "/dev/serial0";
     int pins_leds[]={23,24,25,12,16,20,21,26};
 
     retardo = adc() ; //llamo al adc para ver su valo, si falla la comunicacion 125
     if(cnt==0) retardo2=retardo;
 
-    /*file_descriptor = serialOpen(uart, 9600);   Descomentar al terminar de probar*/
+    file_descriptor = serialOpen(uart, 9600);
 
     system("clear");
     printf("SIENTE EL CHOQUE\n");
@@ -54,21 +54,23 @@ void choque(int ch){
                     system("/bin/stty cooked");
                 }
               }else if(ch==1){
-                data_in  = serialGetchar(file_descriptor);
-    						serialFlush(file_descriptor);
-    		              if(data_in  == 'A'){ //modo de observar si se pulso flecha abajo
-    		                  if(retardo2 != 0) retardo2-=10;
-    		                  j=-1;
-    		                  system("clear");
-    		                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-    		                else if ( data_in == 'B') { //flecha arriba
-    		                  retardo2+=10;
-    		                  j=-1;
-    		                  system("clear");
-    		                  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
-    		            }
+                if(serialDataAvail(file_descriptor) > 0){
+				delay(10);
+				data_in  = serialGetchar(file_descriptor);
+				  if(data_in  == 'A'){ //modo de observar si se pulso flecha abajo
+					  if(retardo2 != 0) retardo2-=10;
+					  j=-1;
+					  system("clear");
+					  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+					else if ( data_in == 'B') { //flecha arriba
+					  retardo2+=10;
+					  j=-1;
+					  system("clear");
+					  printf("Pulse el maravilloso botón de la plaqueta para salir\n");}
+				}
+			}
 		}
-
+		if (digitalRead(17) == 1) break;
         digitalWrite(pins_leds[i], 0);
         digitalWrite(pins_leds[7-i], 0);
 
@@ -99,6 +101,7 @@ void choque(int ch){
 	      				system("/bin/stty cooked");
 			}
 		}
+		if (digitalRead(17) == 1) break;
 
 
     }

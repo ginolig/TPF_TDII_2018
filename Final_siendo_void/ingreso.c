@@ -9,7 +9,7 @@ char mypass[]={'p','a','s','s','w'};
 
 
 int ingreso(){
-int i=0, j=0, k, correcta, ch;
+int i=0, j=0, k, correcta=0, ch;
 initscr();
 noecho();  //Para que no se vea en consola los caracteres tipeados
 
@@ -37,20 +37,25 @@ for(i=0; i<3; i++){ //Bucle que cuenta 3 intentos de ingreso de clave
 			password[j]=ch;
 			}
 	}
-	correcta=1;
  for(int k=0;k<5;k++){ //control de clave
 			// printw("%c", password[k]); sirve al programador para ver por pantalla la clave cargada en el vector
-			if(password[k]==mypass[k] && correcta==1) correcta=1; //Si la variable de control de igualdad es uno y la ingresada es igual al password se mantiene
+			if(password[k]==mypass[k]) correcta=1; //Si la clave ingresada es igual al password se pone la bandera a 1
 			else correcta=0; // De ser distintas se limpia la bandera de clave correcta
 
 }
 
-if(correcta==1) {printw("\n Usted ha ingresado correctamente"); break;}
-
-else printw("\n Vuelva a probar, restan %d intentos \n", 2-i);
+if(correcta==1){
+	printw("\n\t\t Usted ha ingresado correctamente.\n"
+			"\n\t\t Presione una tecla para continuar\n");
+	getch();
+	break;
 }
-echo(); //se vulven a visualizar los caracteres ingresados
-// getch(); //espera una entrada antes de salir
+
+else printw("\n Vuelva a probar, restan %d intentos.\n", 2-i);
+}
+echo(); //se vuelven a visualizar los caracteres ingresados
+if(correcta==0)
+	printw("No se ha obtenido acceso. Terminando programa...\n");
 endwin();
    return correcta;
 }
